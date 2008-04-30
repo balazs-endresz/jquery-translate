@@ -1,0 +1,18 @@
+
+`$.language(text OR array, [options])`
+
+==Options==
+
+override defaults with: `$.language.defaults={}`
+the result object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#detectResult
+
+ * start: function(){}
+ * each: function(){}
+arguments: i, langCode, language, result
+ * complete: function(){}
+arguments: array<langCode>, array<language>, array<result>
+ * error: function(){}
+arguments: result.error
+ * limit: 500
+character limit (the detection is called only for the first part of the strings)
+	
