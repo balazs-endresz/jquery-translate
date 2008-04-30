@@ -1,23 +1,24 @@
-
 $.translate(text OR array, [sourceLang,] destLang [,options])
+
 If a text is given it will be put into an array to access it from the `complete` callback the same way as it would be an array.
 
 ==Options==
 
-override defaults with: `$.translate.defaults={}`
-the result object: 
+Override defaults with: `$.translate.defaults={}`
+
+The result object: 
 http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult
 
  * start: function(){}
  * error: function(){}
-arguments: results.error (an error stops the script completely)
+   * arguments: results.error (an error stops the script completely)
  * each: function(){}
-arguments: i, translation, source, from, to, options, number of calls
+   * arguments: i, translation, source, from, to, options, number of calls
  * complete: function(){}
-arguments: translation, source, from, to, options, number of calls
+   * arguments: translation, source, from, to, options, number of calls
  * onTimeout: function(){}
-the requests won't be aborted (as I have time for this the plugin will be restructured)
+   * the requests won't be aborted (as I have time for this the plugin will be restructured)
  * timeout: 0
-timeout in ms
+   * timeout in ms
  * limit: 500
-character limit
+   * Character limit for each call. If Google raises the limit you can set it here, but don't set it to lower values. This will only affect the nuber of calls, the whole text will be translated.
