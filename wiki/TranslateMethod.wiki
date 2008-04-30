@@ -1,4 +1,3 @@
-==Translate method==
 
 `$('').translate([sourceLang,] destLang [,options])`
 
@@ -6,7 +5,7 @@ available language codes: http://code.google.com/apis/ajaxlanguage/documentation
 
 If you don't specify a source language it will be automatically detected. In many cases it's better to set this too.
 
-===Options===
+==Options==
 override defaults with: `$.fn.translate.defaults={}`
 
  * walk: true
