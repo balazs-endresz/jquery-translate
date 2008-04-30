@@ -2,8 +2,8 @@
 
 ==Options==
 
-override defaults with: `$.language.defaults={}`
-the result object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#detectResult
+Override defaults with: `$.language.defaults={}`
+The result object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#detectResult
 
  * start: function(){}
  * each: function(){}
