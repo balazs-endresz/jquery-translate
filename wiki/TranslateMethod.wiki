@@ -1,4 +1,4 @@
-`$('').translate([sourceLang,] destLang [,options])`
+#summary $('').translate([sourceLang,] destLang [,options])
 
 available language codes: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
 
