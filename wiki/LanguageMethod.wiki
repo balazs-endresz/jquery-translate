@@ -1,0 +1,26 @@
+
+`$('').language([options])`
+
+Here new requests are sent for each element and their children won't be added to the jQuery object as in .translate().
+
+==Options==
+
+override defaults with: `$.fn.language.defaults={}`
+the result object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#detectResult
+
+ * setLangAttr: true
+true: lang attribute
+string: this attribute will be set
+false: don't set any attribute
+ * subject: true
+true: each element's .text()
+a string: that specific attribute's value
+ * limit: 500
+character limit (the detection is called only for the first part of the strings)
+ * start: function(){}
+ * each: function(){}
+arguments: i, DOMelement, langCode, language, result
+ * complete: function(){}
+arguments: array<DOMelement>, array<langCode>, array<language>, array<result>
+ * error: function(){}
+arguments: result.error 
