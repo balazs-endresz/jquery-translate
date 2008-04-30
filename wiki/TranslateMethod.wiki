@@ -1,4 +1,3 @@
-
 `$('').translate([sourceLang,] destLang [,options])`
 
 available language codes: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
@@ -9,46 +8,46 @@ If you don't specify a source language it will be automatically detected. In man
 override defaults with: `$.fn.translate.defaults={}`
 
  * walk: true
-true: executes the script on all child elements too, on complex pages this can take time
-false: translates the given elements' .html(), doesn't get their children, generates more requests
+   * true: executes the script on all child elements too, on complex pages this can take time
+   * false: translates the given elements' .html(), doesn't get their children, generates more requests
  * returnAll: false
-true: returns all elements that have been translated (in a jQuery object)
-false: returns the caller jQuery object
+   * true: returns all elements that have been translated (in a jQuery object)
+   * false: returns the caller jQuery object
  * replace: true
-replace original text on the page with the translation
+   * replace original text on the page with the translation
  * translate: true
-if set to false, elements won't be tranlated, you can return the processed elements
+   * if set to false, elements won't be tranlated, you can return the processed elements
  * limit: 500
-maximum number of characters sent by each google.language.translate() request
+   * Character limit for each call. If Google raises the limit you can set it here, but don't set it to lower values. This will only affect the nuber of calls, the whole text will be translated.
  * rebind: true
-rebind event handlers for elements translated as html (for elements with just textnodes only their .text() will be translated)
+   * rebind event handlers for elements translated as html (for elements with just textnodes only their .text() will be translated)
  * data: false
-store source and translated text with $.data at 'translation.'+destLangCode+'.'+('html' OR attribute)
+   * store source and translated text with $.data at 'translation.'+destLangCode+'.'+('html' OR attribute)
  * setLangAttr: false
-store destination language code in html lang attribute
-true: set the 'lang' attribute
-false:don't set any attribute
-a string: set that html attribute
+   * store destination language code in html lang attribute
+   * true: set the 'lang' attribute
+   * false:don't set any attribute
+   * string: set that html attribute
  * subject: true
-if text is given, only that html attribute will be translated
+   * if text is given, only that html attribute will be translated
  * altAndVal: true
-translate alt and :button,:text,:reset's value attribute too when translating text/html (these don't have any textnodes, so they can be processed along with {subject:true})
+   * translate alt and :button,:text,:reset's value attribute too when translating text/html (these don't have any textnodes, so they can be processed along with {subject:true})
  * not: ''
-a jquery expr - elements to leave out (script will be omitted either this is set or not)
+   * a jquery expr - elements to leave out (script will be omitted either this is set or not)
  * comments: false
-true:translates comments too when an element's .html() is tranlated, 
-false:removes the comments, when an element's .html() is tranlated
+   * true:translates comments too when an element's .html() is tranlated, 
+   * false:removes the comments, when an element's .html() is tranlated
 
  * start: function(){}
  * error: function(){}
-google's results.error will be passed (an error stops the script completely)
+   * google's results.error will be passed (an error stops the script completely)
  * each: function(){}
-executes on each element (which contain something to translate)
-arguments: i, DOMelement, translation, source, from, to, opt, number of calls
+   * executes on each element (which contain something to translate)
+   * arguments: i, DOMelement, translation, source, from, to, opt, number of calls
  * complete: function(){}
-arguments: jQuery, processed jQuery, arr<transl>, arr<source>, from, to, opt, number of calls
-the from argument is the sourceLangCode from the last translation (if it was detected then  that one)
+   * arguments: jQuery, processed jQuery, arr<transl>, arr<source>, from, to, opt, number of calls
+   * the from argument is the sourceLangCode from the last translation (if it was detected then  that one)
  * onTimeout: function(){}
-the requests won't be aborted (as I have time for this the plugin will be restructured)
+   * the requests won't be aborted (as I have time for this the plugin will be restructured)
  * timeout: 0
-timeout in ms
+   * timeout in ms
