@@ -1,4 +1,4 @@
-#summary `$.language(text OR array, [options])`
+#summary $.language(text OR array, [options])
 
 ==Options==
 
