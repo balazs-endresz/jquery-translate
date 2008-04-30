@@ -5,7 +5,7 @@ available language codes: http://code.google.com/apis/ajaxlanguage/documentation
 If you don't specify a source language it will be automatically detected. In many cases it's better to set this too.
 
 ==Options==
-override defaults with: `$.fn.translate.defaults={}`
+Override defaults with: `$.fn.translate.defaults={}`
 
  * walk: true
    * true: executes the script on all child elements too, on complex pages this can take time
