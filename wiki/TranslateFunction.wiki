@@ -1,4 +1,4 @@
-$.translate(text OR array, [sourceLang,] destLang [,options])
+#summary $.translate(text OR array, [sourceLang,] destLang [,options])
 
 If a text is given it will be put into an array to access it from the `complete` callback the same way as it would be an array.
 
