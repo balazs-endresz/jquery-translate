@@ -1,4 +1,3 @@
-
 `$.language(text OR array, [options])`
 
 ==Options==
@@ -8,11 +7,11 @@ the result object: http://code.google.com/apis/ajaxlanguage/documentation/refere
 
  * start: function(){}
  * each: function(){}
-arguments: i, langCode, language, result
+   * arguments: i, langCode, language, result
  * complete: function(){}
-arguments: array<langCode>, array<language>, array<result>
+   * arguments: array<langCode>, array<language>, array<result>
  * error: function(){}
-arguments: result.error
+   * arguments: result.error
  * limit: 500
-character limit (the detection is called only for the first part of the strings)
+   * character limit (the detection is called only for the first part of the strings)
 	
