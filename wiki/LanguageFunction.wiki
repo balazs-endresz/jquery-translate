@@ -3,6 +3,7 @@
 ==Options==
 
 Override defaults with: `$.language.defaults={}`
+
 The result object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#detectResult
 
  * start: function(){}
