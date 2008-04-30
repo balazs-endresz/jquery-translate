@@ -1,4 +1,4 @@
-`$.language(text OR array, [options])`
+# `$.language(text OR array, [options])`
 
 ==Options==
 
