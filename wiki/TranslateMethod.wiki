@@ -1,4 +1,5 @@
 #summary $( ).translate([sourceLang,] destLang [,options])
+#labels Featured
 
 available language codes: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
 
