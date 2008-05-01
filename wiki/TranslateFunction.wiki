@@ -16,6 +16,7 @@ http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateR
    * arguments: i, translation, source, from, to, options, number of calls
  * complete: function(){}
    * arguments: translation, source, from, to, options, number of calls
+   * the translation and source are arrays or strings depending on which was translated
  * onTimeout: function(){}
    * the requests won't be aborted (as I have time for this the plugin will be restructured)
  * timeout: 0
