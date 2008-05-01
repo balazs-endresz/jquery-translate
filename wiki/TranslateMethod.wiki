@@ -40,6 +40,7 @@ Override defaults with: `$.fn.translate.defaults={}`
    * false:removes the comments, when an element's .html() is tranlated
 
  * start: function(){}
+   * arguments: jQuery
  * error: function(){}
    * google's results.error will be passed (an error stops the script completely)
  * each: function(){}
