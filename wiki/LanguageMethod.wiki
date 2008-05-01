@@ -19,6 +19,7 @@ The result object: http://code.google.com/apis/ajaxlanguage/documentation/refere
  * limit: 500
    * character limit (the detection is called only for the first part of the strings)
  * start: function(){}
+   * arguments: jQuery
  * each: function(){}
    * arguments: i, DOMelement, langCode, language, result
  * complete: function(){}
