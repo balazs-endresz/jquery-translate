@@ -1,4 +1,5 @@
 #summary $.language(text OR array, options)
+#labels Featured
 
 ==Options==
 
