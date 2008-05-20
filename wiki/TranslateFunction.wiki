@@ -11,6 +11,7 @@ The result object:
 http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult
 
  * start: function(){}
+   * arguments: as of 1.1: source, from, to, options
  * error: function(){}
    * arguments: results.error (an error stops the script completely)
  * each: function(){}
@@ -19,7 +20,8 @@ http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateR
    * arguments: translation, source, from, to, options, number of calls
    * the translation and source arguments are arrays or strings depending on which was translated
  * onTimeout: function(){}
-   * the requests won't be aborted (as I have time for this the plugin will be restructured)
+   * the requests won't be aborted automatically
+   * arguments: as of v1.1: jQuery, source, from, to, options
  * timeout: 0
    * timeout in ms
  * limit: 500
