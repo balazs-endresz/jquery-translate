@@ -24,8 +24,10 @@ The result object: http://code.google.com/apis/ajaxlanguage/documentation/refere
    * arguments: as of v1.1: jQuery, options
  * each: function(){}
    * arguments: i, DOMelement, langCode, language, result
+   * as of v1.1: i, DOMelement, text, langCode, language, result, options
  * complete: function(){}
    * arguments: array<DOMelement>, array<langCode>, array<language>, array<result>
+   * as of v1.1: array<DOMelement>, array<text>, array<langCode>, array<language>, array<result>
  * error: function(){}
    * arguments: result.error 
 
