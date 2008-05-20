@@ -41,7 +41,7 @@ Override defaults with: `$.fn.translate.defaults={}`
 
  * start: function(){}
    * arguments: jQuery 
-   * as of v1.1: jQuery, source, from, to, options
+   * as of v1.1: jQuery, from, to, options
  * error: function(){}
    * google's results.error will be passed (an error stops the script completely)
  * each: function(){}
