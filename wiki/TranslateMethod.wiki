@@ -40,7 +40,8 @@ Override defaults with: `$.fn.translate.defaults={}`
    * false:removes the comments, when an element's .html() is tranlated
 
  * start: function(){}
-   * arguments: jQuery
+   * arguments: jQuery 
+   * as of v1.1: jQuery, source, from, to, options
  * error: function(){}
    * google's results.error will be passed (an error stops the script completely)
  * each: function(){}
@@ -50,6 +51,7 @@ Override defaults with: `$.fn.translate.defaults={}`
    * arguments: jQuery, processed jQuery, arr<transl>, arr<source>, from, to, opt, number of calls
    * the from argument is the sourceLangCode from the last translation (if it was detected then  that one)
  * onTimeout: function(){}
-   * the requests won't be aborted (as I have time for this the plugin will be restructured)
+   * the requests won't be aborted automatically
+   * arguments: as of v1.1: jQuery, source, from, to, options
  * timeout: 0
    * timeout in ms
