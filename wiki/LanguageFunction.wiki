@@ -8,6 +8,7 @@ Override defaults with: `$.language.defaults={}`
 The result object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#detectResult
 
  * start: function(){}
+   * arguments: as of v1.1: source, options
  * each: function(){}
    * arguments: i, langCode, language, result
  * complete: function(){}
