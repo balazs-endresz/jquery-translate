@@ -26,3 +26,8 @@ http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateR
    * timeout in ms
  * limit: 500
    * Character limit for each call. If Google raises the limit you can set it here, but don't set it to lower values. This will only affect the nuber of calls, the whole text will be translated.
+
+as of v1.1:
+ * comments: false
+   * false: removes html comments from the source text/array
+   * true: comments will be translated too 
