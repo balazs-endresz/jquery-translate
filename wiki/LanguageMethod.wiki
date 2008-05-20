@@ -27,7 +27,7 @@ The result object: http://code.google.com/apis/ajaxlanguage/documentation/refere
    * as of v1.1: i, DOMelement, text, langCode, language, result, options
  * complete: function(){}
    * arguments: array<DOMelement>, array<langCode>, array<language>, array<result>
-   * as of v1.1: array<DOMelement>, array<text>, array<langCode>, array<language>, array<result>
+   * as of v1.1: array<DOMelement>, array<text>, array<langCode>, array<language>, array<result>, options
  * error: function(){}
    * arguments: result.error 
 
