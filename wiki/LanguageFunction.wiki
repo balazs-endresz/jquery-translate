@@ -11,8 +11,10 @@ The result object: http://code.google.com/apis/ajaxlanguage/documentation/refere
    * arguments: as of v1.1: source, options
  * each: function(){}
    * arguments: i, langCode, language, result
+   * as of v1.1: i, text, langCode, language, result, options
  * complete: function(){}
    * arguments: array<langCode>, array<language>, array<result>
+   * as of v1.1: text, array<langCode>, array<language>, array<result>, options
  * error: function(){}
    * arguments: result.error
  * limit: 500
