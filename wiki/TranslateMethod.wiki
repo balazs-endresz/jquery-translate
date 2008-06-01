@@ -8,6 +8,16 @@ If you don't specify a source language it will be automatically detected. In man
 ==Options==
 Override defaults with: `$.fn.translate.defaults={}`
 
+ * async: false (v1.1.1)
+   * this prevents the browser from freezing on larger sites by executing each filtering iteration with a delay
+   * you can set the length of the delay in ms, setting it true will be 2 ms
+   * the returnAll option won't work, it will return the jQuery object immediately
+ * split: false (v1.1.1)
+   * you can also interrupt the filtering with this option:
+   * if you e.g. set it to 10 then it will filter 10 elements at once then translate them, as the translation arrived it will filter the next 10 elements and so on
+   * the returnAll option won't work, it will return the jQuery object immediately 
+   * this can be used in conjunction with the async option
+
  * walk: true
    * true: executes the script on all child elements too, on complex pages this can take time
    * false: translates the given elements' .html(), doesn't get their children, generates more requests
