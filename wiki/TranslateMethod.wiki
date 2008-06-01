@@ -10,7 +10,7 @@ Override defaults with: `$.fn.translate.defaults={}`
 
  * async: false (v1.1.1)
    * this prevents the browser from freezing on larger sites by executing each filtering iteration with a delay
-   * you can set the length of the delay in ms, setting it true will be 2 ms
+   * you can set the length of the delay in ms, setting it true means 2 ms
    * the returnAll option won't work, it will return the jQuery object immediately
  * split: false (v1.1.1)
    * you can also interrupt the filtering with this option:
