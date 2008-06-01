@@ -1,0 +1,10 @@
+#summary General settings
+#labels Featured
+
+==Functions available inside callback functions==
+
+ * this.stop()
+   * stops sending requests
+ * this.getLanguage(langCode, format)
+   * returns the name of the language based on the language code
+   * format can be: 'lowercase', 'uppercase', 'capitalize' (default is uppercase)
