@@ -1,7 +1,7 @@
 #summary General settings
 #labels Featured
 
-==Methods available inside callback functions==
+==Methods available inside callback functions (v1.1+)==
 
  * this.stop()
    * stops the translation
