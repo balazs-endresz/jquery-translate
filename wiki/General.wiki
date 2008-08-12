@@ -24,4 +24,10 @@ $.translate.ready=function(){
 
 You can use these after the $.translate() and $.language() functions as they return the same object to which this refers to inside callback functions (v1.1.2+). The jQuery methods return a jQuery object so these can't be used after them.
 
+==Some sites using this plugin==
+
+ * [http://www.texasonline.com www.texasonline.com]
+ * [http://www.mediamonkey.com www.mediamonkey.com]
+ * [http://canto.extra.hu/site/query.php?lang=en&id=arrivein canto.extra.hu]
+
 If you have questions or any ideas feel free to write here or send a mail.
