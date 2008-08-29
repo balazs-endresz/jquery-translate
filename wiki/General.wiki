@@ -25,7 +25,7 @@ $.translate.ready=function(){
    * returns the google.language.Languages object (the available languages)
    * if the first argument is true it returns only the translatable languages
 
-You can use these after the $.translate() and $.language() functions as they return the same object to which this refers to inside callback functions (v1.1.2+). The jQuery methods return a jQuery object so these can't be used after them.
+You can use these after the $.translate() and $.language() functions as they return the same object to which `this` refers to inside callback functions (v1.1.2+). The jQuery methods return a jQuery object so these can't be used after them.
 
 ==Some sites using this plugin==
 
