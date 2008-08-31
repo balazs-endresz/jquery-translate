@@ -6,12 +6,12 @@ Simply include the plugin after jQuery, it loads all the necessary stuff from Go
 
 In most cases you can use the plugin inside $(document).ready() but since v1.1.2 you can define a callback function to be executed when the Language API is loaded. After the plugin loads it checks for 30 seconds if $.translate.ready is a function. Until this time you can define a function which will be executed after the Language API is loaded:
 {{{
-$.translate.ready=function(){
-  console.log('Language API is loaded');
-  $(document).ready(function(){ //important! 
+$(document).ready(function(){ //important! 
+  $.translate.ready=function(){
+    console.log('Language API is loaded');
     $('body').translate('en');
-  })
-}
+  }
+})
 }}}
 
 ==Methods available inside callback functions (v1.1+)==
