@@ -10,7 +10,7 @@ In most cases you can use the plugin inside $(document).ready() but since v1.1.2
 {{{
 $(document).ready(function(){
   $.translate.ready=function(){
-    console.log('Language API is loaded');
+    //console.log('Language API is loaded');
     $('body').translate('en');
   }
 })
