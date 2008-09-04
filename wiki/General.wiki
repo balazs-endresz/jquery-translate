@@ -2,11 +2,13 @@
 #labels Featured
 ==Usage==
 
-Simply include the plugin after jQuery, it loads all the necessary stuff from Google. Or you can load the jsapi.js or the language API too before, they won't be loaded again. You can also include the copyEvents plugin because if an HTML tag has text and other child nodes at the same level than its innerHTML will be translated and replaced. If you don't use livequery and attached event handlers with jQuery they need to be copied to the new elements.
+Simply include the plugin after jQuery, it loads all the necessary stuff from Google. Or you can load the jsapi.js or the language API too before, they won't be loaded again.
+
+You don't have to include the copyEvents plugin anymore(v1.1.5+): a similar function is included for rebinding event handlers because if an HTML tag has text and other child nodes at the same level than its innerHTML will be translated and replaced. If you attached event handlers with jQuery they will be copied to the new elements.
 
 In most cases you can use the plugin inside $(document).ready() but since v1.1.2 you can define a callback function to be executed when the Language API is loaded. After the plugin loads it checks for 30 seconds if $.translate.ready is a function. Until this time you can define a function which will be executed after the Language API is loaded:
 {{{
-$(document).ready(function(){ //important! 
+$(document).ready(function(){
   $.translate.ready=function(){
     console.log('Language API is loaded');
     $('body').translate('en');
