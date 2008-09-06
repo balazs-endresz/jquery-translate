@@ -27,7 +27,26 @@ $(document).ready(function(){
    * returns the google.language.Languages object (the available languages)
    * if the first argument is true it returns only the translatable languages
 
-You can use these after the $.translate() and $.language() functions as they return the same object to which `this` refers to inside callback functions (v1.1.2+). The jQuery methods return a jQuery object so these can't be used after them.
+You can use these after the $.translate() and $.language() functions as they return the same object to which `this` refers to inside callback functions (v1.1.2+). The jQuery methods return a jQuery object so these can't be used after them. (Like: `$.translate().getLanguages(true)` or `$.language().getLanguage('en', 'capitalize')`)
+
+==How it works?==
+
+ # Gathers all nodes that contain text ( if a node has text and other child nodes at the same level than its innerHTML will be translated).
+ # Serializes the array of extracted texts (puts each one in a div to simulete array functionality).
+ # Splits this string into smaller segments (the character limit is 500 per request), so that no sentences or html tags will be broken.
+ # Starts translating these segments.
+ # If a `div` (that stands for an item of the 'array') is completely translated it will be inserted to the doocument (then the `each` callback fires).
+ # If some html elements got replaced (not just their textnodes) then it rebinds event handlers attached to them (but won't replace script elements).
+
+==Why use it?==
+
+ * Safely reduces the number of AJAX API calls (by about 20-40%) compared to translating only innerHTML.
+ * You can translate an array of strings and the results are returned faster, don't have to wait for all the elements.
+ * Don't have to exactly specify what to translate, just container elements (like `$('body').translate('de')`).
+ * Simple jQuery-stlye syntax, automatic event rebinding, `start, each, complete, error, timeout` callback functions and other options.
+ * Ability to stop a translation, convenience methods for getting available/translatable languages or getting the language from language code.
+ * And of course you don't have to get around the 500 character limit.
+
 
 ==Some sites using this plugin==
 
