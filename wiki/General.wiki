@@ -51,7 +51,6 @@ You can use these after the $.translate() and $.language() functions as they ret
 ==Some sites using this plugin==
 
  * [http://www.texasonline.com www.texasonline.com]
- * [http://www.mediamonkey.com www.mediamonkey.com]
  * [http://canto.extra.hu/site/query.php?lang=en&id=arrivein canto.extra.hu]
 
 If you have questions or any ideas feel free to write here or send a mail.
