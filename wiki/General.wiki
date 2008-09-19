@@ -1,8 +1,12 @@
 #summary General settings
 #labels Featured
 
+----
+
 There were some important changes in v1.2, please _read the release notes_ included. The documentation will be updated later.
 Most important: `$.translate.ready=function(){ ... }` won't work, use  $.translate*()*.ready*(*function(){ ... }*)* instead.
+
+----
 
 ==Usage==
 
