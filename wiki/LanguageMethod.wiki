@@ -1,5 +1,4 @@
 #summary $( ).language([options])
-#labels Featured
 
 Here new requests are sent for each element and their children won't be added to the jQuery object as in .translate().
 as of v1.1: behaves like the translate method
