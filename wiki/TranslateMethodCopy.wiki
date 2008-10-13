@@ -1,0 +1,66 @@
+#summary This is just a copy, the original page currently throws an error.
+
+available language codes: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
+
+If you don't specify a source language it will be automatically detected. In many cases it's better to set this too.
+
+==Options==
+Override defaults with: `$.fn.translate.defaults={}`
+
+ * async: false (v1.1.1)
+   * this prevents the browser from freezing on larger sites by executing each filtering iteration with a delay
+   * you can set the length of the delay in ms, setting it true means 2 ms
+   * the returnAll option won't work, it will return the jQuery object immediately
+ * split: false (v1.1.1)
+   * you can also interrupt the filtering with this option:
+   * if you e.g. set it to 10 then it will filter 10 elements at once then translate them, as the translation arrived it will filter the next 10 elements and so on
+   * the returnAll option won't work, it will return the jQuery object immediately 
+   * this can be used in conjunction with the async option
+
+ * walk: true
+   * true: executes the script on all child elements too, on complex pages this can take time
+   * false: translates the given elements' .html(), doesn't get their children, generates more requests
+ * returnAll: false
+   * true: returns all elements that have been translated (in a jQuery object)
+   * false: returns the caller jQuery object
+ * replace: true
+   * replace original text on the page with the translation
+ * translate: true
+   * if set to false, elements won't be tranlated, you can return the processed elements
+ * limit: 500
+   * Character limit for each call. If Google raises the limit you can set it here, but don't set it to lower values. This will only affect the nuber of calls, the whole text will be translated.
+ * rebind: true
+   * rebind event handlers for elements translated as html (for elements with just textnodes only their .text() will be translated)
+ * data: false
+   * store source and translated text with $.data at 'translation.'+destLangCode+'.'+('html' OR attribute)
+ * setLangAttr: false
+   * store destination language code in html lang attribute
+   * true: set the 'lang' attribute
+   * false:don't set any attribute
+   * string: set that html attribute
+ * subject: true
+   * if text is given, only that html attribute will be translated
+ * altAndVal: true
+   * translate alt and :button,:text,:reset's value attribute too when translating text/html (these don't have any textnodes, so they can be processed along with {subject:true})
+ * not: ''
+   * a jquery expr - elements to leave out (script will be omitted either this is set or not)
+ * comments: false
+   * true:translates comments too when an element's .html() is tranlated, 
+   * false:removes the comments, when an element's .html() is tranlated
+
+ * start: function(){}
+   * arguments: jQuery 
+   * as of v1.1: jQuery, from, to, options
+ * error: function(){}
+   * google's results.error will be passed (an error stops the script completely)
+ * each: function(){}
+   * executes on each element (which contain something to translate)
+   * arguments: i, DOMelement, translation, source, from, to, opt, number of calls
+ * complete: function(){}
+   * arguments: `jQuery, processed jQuery, arr<transl>, arr<source>, from, to, opt, number of calls`
+   * the from argument is the sourceLangCode from the last translation (if it was detected then  that one)
+ * onTimeout: function(){}
+   * the requests won't be aborted automatically
+   * arguments: as of v1.1: jQuery, from, to, options
+ * timeout: 0
+   * timeout in ms
