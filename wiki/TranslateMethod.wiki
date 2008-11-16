@@ -105,7 +105,7 @@ $('body').translate('en', 'de', {
    * if you stop the translation with the internal stop() method it returns {message:'stopped'}
  * each: function(){}
    * executes after each element was translated
-   * arguments: i, DOMelement, translation[i], source[i], from, to, options, numberOfCalls
+   * arguments: i, DOMelement, `translation[i]`, `source[i]`, from, to, options, numberOfCalls
  * complete: function(){}
    * arguments: original elements, filtered elements, array: transl, array: source, from, to, opt, numberOfCalls
    * the from argument is the sourceLangCode from the last part of the translation (if it was detected then that one)
