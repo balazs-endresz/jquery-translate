@@ -48,7 +48,7 @@ These functions are described in depth in the other wiki pages:
  * [TranslateFunction $.translate( text, lang, ... ) ]
  * [LanguageMethod $(...).language( ... ) ]
  * [LanguageFunction $.language( text,  ... ) ]
-
+ * [Extensions Additional extensions]
 
 ==Internal methods ==
 
