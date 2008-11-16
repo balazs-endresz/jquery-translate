@@ -1,32 +1,76 @@
 #summary $.translate(text OR array, [sourceLang,] destLang [,options])
 
-If a text is given it will be put into an array to access it from the `complete` callback the same way as it would be an array.
+List of available languages: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
+
+If you don't specify a source language it will be automatically detected. But in many cases it's better to set that too. You can use the long name of the language or just the language code ('en' == 'english'). You can send an array as the first argument or just some text to translate. If it is not an array then the returned values and the object's `source` and `translation` properties will be strings too.
+
+{{{
+//to german from any language:
+$.translate( 'some text', 'de' );
+
+//from english to german:
+$.translate( 'some text', 'en', 'de' );
+
+//with options:
+$.translate( 'some text', 'de', {
+  each: function(i, translation){ }
+});
+
+//translate an array:
+$.translate( ['some text', 'some other text'], 'en', 'de', {
+  complete: function(translation){ }
+});
+
+//you can set the languges in the options too (setting as a separate parameter like above overrides it):
+$.translate( ['some text', 'some other text'], { from:'de', to:'en', fromOriginal: true, toggle:true } );
+
+}}}
 
 ==Options==
 
 Override defaults with: `$.translate.defaults={}`
+{{{
+  $.translate.defaults={ limit:1500 };
+  //or
+  $.translate.defaults.limit=1500;
+}}}
 
-The result object: 
-http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult
+(The `result` object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult )
+
+These are the default values after each option:
 
  * start: function(){}
-   * arguments: as of 1.1: source, from, to, options
+   * arguments: source, from, to, options
  * error: function(){}
    * arguments: results.error (an error stops the script completely)
  * each: function(){}
-   * arguments: i, translation, source, from, to, options, number of calls
+   * arguments: i, translation[i], source[i], from, to, options, numberOfCalls
  * complete: function(){}
-   * arguments: translation, source, from, to, options, number of calls
+   * arguments: translation, source, from, to, options, numberOfCalls
    * the translation and source arguments are arrays or strings depending on which was translated
  * onTimeout: function(){}
-   * the requests won't be aborted automatically
-   * arguments: as of v1.1: source, from, to, options
+   * the requests won't be aborted automatically (call `this.stop()` if you want to stop the translation)
+   * arguments: source, from, to, options
  * timeout: 0
    * timeout in ms
- * limit: 500
+ * limit: 1000
    * Character limit for each call. If Google raises the limit you can set it here, but don't set it to lower values. This will only affect the nuber of calls, the whole text will be translated.
-
-as of v1.1:
  * comments: false
    * false: removes html comments from the source text/array
    * true: comments will be translated too 
+   
+
+You can use the internal methods after `this` inside the callback functions, and the object's properties are also available:
+ * this.i
+ * this.translation (array) //if just a single string was translated this is a string too
+ * this.source (array) //if just a single string was translated this is a string too
+ * this.options
+ * this.from
+ * this.to
+{{{
+$.translate(['some text', 'some other text'], 'en', 'de', {
+  each: function(i){
+    console.log( this.translation[i] ) // i==this.i
+  }
+})
+}}}
