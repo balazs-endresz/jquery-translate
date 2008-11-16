@@ -107,7 +107,7 @@ $('body').translate('en', 'de', {
    * executes after each element was translated
    * arguments: i, DOMelement, translation[i], source[i], from, to, options, numberOfCalls
  * complete: function(){}
-   * arguments: original elements, filtered elements, array<transl>, array<source>, from, to, opt, numberOfCalls
+   * arguments: original elements, filtered elements, array: transl, array: source, from, to, opt, numberOfCalls
    * the from argument is the sourceLangCode from the last part of the translation (if it was detected then that one)
  * onTimeout: function(){}
    * the requests won't be aborted automatically (use this.stop inside it if you want to stop it)
