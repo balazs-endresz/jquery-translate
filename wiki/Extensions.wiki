@@ -1,0 +1,40 @@
+#summary Extensions
+
+=jquery.translte.ui=
+
+Simple extension to generate an element based on the translatable languages.
+You can try this [here http://docs.jquery.com/Main_Page] by running it with [Firebug http://getfirebug.com/].
+
+{{{
+$.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.4.min.js', function(){
+  $.translate(function(){ //language API loaded
+    $.translate().ui('select', 'option') //generate dropdown
+      .change(function(){
+        $('body').translate( 'english', $(this).val(), {
+          not: '.option, #demo, #source, pre, #jq-translate-ui',
+          async: true,
+          fromOriginal:true
+        })
+      })
+      .val('English')
+      .appendTo('#jq-primaryNavigation');
+  });
+});
+}}}
+
+=jquery.translte.progress=
+
+This small extensions helps you to integrate jQuery UI's progressbar component.
+
+{{{
+$(function(){ //DOM ready
+  $('body').translate('de',{
+    each: function(){
+      this.progress("#progressbar", options)
+    }
+  })
+});
+}}}
+
+Available options to initialize the progressbar here: http://docs.jquery.com/UI/Progressbar/progressbar#options
+The progressbar will be automatically updated as each element gets translated.
