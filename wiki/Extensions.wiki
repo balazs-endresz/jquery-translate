@@ -1,4 +1,5 @@
 #summary Extensions
+#labels Featured
 
 =jquery.translte.ui=
 
