@@ -39,3 +39,5 @@ $(function(){ //DOM ready
 
 Available options to initialize the progressbar here: http://docs.jquery.com/UI/Progressbar/progressbar#options
 The progressbar will be automatically updated as each element gets translated.
+
+Without arguments it will return a number between 0 and 100, with which you can manually update the progressbar component or just update some field on the page. 
