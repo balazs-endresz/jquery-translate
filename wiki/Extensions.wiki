@@ -4,7 +4,7 @@
 =jquery.translate.ui=
 
 Simple extension to generate an element based on the translatable languages.
-You can try this here: http://docs.jquery.com/Main_Page by running it with Firebug ( http://getfirebug.com/ ). On other sites this will only work if jQuery was included before.
+You can try this here: http://docs.jquery.com/Main_Page by running it with Firebug ( http://getfirebug.com/ ).
 
 {{{
 $.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.4.min.js', function(){ //when the script is loaded
@@ -21,6 +21,8 @@ $.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.4
   });
 });
 }}}
+
+On other sites this will only work if jQuery was included before. Also, you have to append it to an existing element: `.appendTo('h1')` or `.prependTo('body')`
 
 =jquery.translate.progress=
 
