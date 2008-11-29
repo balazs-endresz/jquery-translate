@@ -114,3 +114,6 @@ $('body').translate('en', 'de', {
    * arguments: filtered elements, from, to, options
  * timeout: 0
    * time after the onTimeout will fire (in ms)
+
+
+_In the comment below you may notice the copyEvents plugin: this is no longer needed (v1.1.5+), a bit different function is included in the plugin, which iterates through all the elements (unlike the original plugin, which only deals with the first item in a set)._
