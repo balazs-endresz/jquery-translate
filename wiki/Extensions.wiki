@@ -7,12 +7,12 @@ Simple extension to generate an element based on the translatable languages.
 You can try this here: http://docs.jquery.com/Main_Page by running it with Firebug ( http://getfirebug.com/ ).
 
 {{{
-$.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.5.min.js', function(){ //when the script is loaded
+$.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.6.min.js', function(){ //when the script is loaded
   $.translate(function(){ //when the Google Language API is loaded
     $.translate().ui('select', 'option') //generate dropdown
       .change(function(){ //when selecting another language
         $('body').translate( 'english', $(this).val(), { //translate from english to the selected language
-          not: '.option, #demo, #source, pre, #jq-translate-ui', //exclude these elements
+          not: '.option, #demo, #source, pre, .jq-translate-ui', //exclude these elements
           fromOriginal:true //always translate from english (even after the page has been translated)
         })
       })
