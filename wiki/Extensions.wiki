@@ -9,6 +9,7 @@ You can try this here: http://docs.jquery.com/Main_Page by running it with Fireb
 {{{
 $.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.6.min.js', function(){ //when the script is loaded
   $.translate(function(){ //when the Google Language API is loaded
+
     $.translate().ui('select', 'option') //generate dropdown
       .change(function(){ //when selecting another language
         $('body').translate( 'english', $(this).val(), { //translate from english to the selected language
@@ -18,6 +19,10 @@ $.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.2.6
       })
       .val('English') //select English as default
       .appendTo('#jq-primaryNavigation'); //insert the dropdown to the page
+    
+    //insert Google's logo after the dropdown:
+    $.translate().getBranding().appendTo('#jq-primaryNavigation');
+
   });
 });
 }}}
