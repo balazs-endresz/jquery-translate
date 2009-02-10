@@ -37,7 +37,7 @@ This small extensions helps you to integrate jQuery UI's progressbar component.
 $(function(){ //DOM ready
   $('body').translate('de',{
     each: function(){
-      this.progress("#progressbar", options)
+      this.progress("#progressbar" /* , options */ )
     }
   })
 });
