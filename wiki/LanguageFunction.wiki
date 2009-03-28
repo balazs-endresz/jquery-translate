@@ -1,5 +1,7 @@
 #summary $.language(text OR array, options)
 
+*REMOVED IN VERSION 1.3! See release notes for details.*
+
 ==Options==
 
 Override defaults with: `$.language.defaults={}`
