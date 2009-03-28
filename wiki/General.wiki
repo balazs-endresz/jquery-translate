@@ -1,15 +1,17 @@
 #summary General information
 #labels Featured
 
+*Since version 1.3 you can use `$.translate.someMethod()` but `$.translate().someMethod()` will work too! The documentation is being updated.*
+
 ==Usage==
 
 Simply include the plugin after jQuery, it loads all the necessary stuff from Google. (If you can load the jsapi.js or the language API too before, they won't be loaded again.)
 {{{
-<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="js/jquery.translate-1.2.6.js"></script>
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.translate-1.3.0.js"></script>
 }}}
 
-If you want to use the plugin on page load in most cases you can call it inside `$(document).ready()` but in some cases you have to define a callback function to be executed when the Language API is loaded. It's not `$(document).ready()` but `$.translate().ready()`:
+If you want to use the plugin on page load in most cases you can call it inside `$(document).ready()` but in some cases you have to define a callback function to be executed when the Language API is loaded. It's not `$(document).ready()` but `$.translate.ready()`:
 
 {{{
 $(document).ready(function(){
@@ -27,16 +29,16 @@ $(document).ready(function(){
 
   //this won't (always) work!
   //the Language API may not be loaded, the return value cannot be determined
-  $.translate().getLanguages();
+  $.translate.getLanguages();
   
   //this will work, as it will be executed when the Language API is loaded
-  $.translate().ready(function(){
-    $.translate().getLanguages() 
+  $.translate.ready(function(){
+    $.translate.getLanguages() 
   })
   
   //you can also use a shorter alias as in jQuery:
   $.translate(function(){
-    $.translate().getLanguages()
+    $.translate.getLanguages()
   })
 
 })
@@ -46,13 +48,11 @@ As you can see above you can translate an html element (first example) or only s
 These functions are described in depth in the other wiki pages:
  * [TranslateMethod $(...).translate( lang, ... ) ]
  * [TranslateFunction $.translate( text, lang, ... ) ]
- * [LanguageMethod $(...).language( ... ) ]
- * [LanguageFunction $.language( text,  ... ) ]
  * [Extensions Additional extensions]
 
 ==Internal methods ==
 
-These methods can be called after `$.translate()` and inside callback functions too after `this`:
+These methods can be called after `$.translate` and inside callback functions too after `this`:
 
 {{{
 $('body').translate('english',{
@@ -63,15 +63,17 @@ $('body').translate('english',{
 });
 
 //if you don't want to translate anything, just get the translatable languages:
-var lang = $.translate().getLanguages( true );
+var lang = $.translate.getLanguages( true );
 console.log( lang );
 
 }}}
 
-If you included the language detection module too then you can use `$.language()` as an alias to `$.translate()`. The methods that are called on a jQuery object ( like `$('body').translate('en')` ) always return a jQuery object, so you can't use these methods on them.
 
  * ready( function(){...} )
    * executes the function supplied if/when the language API is loaded, see above
+ * load( APIkey, APIname, version )
+   * loads jsapi.js and the Language API, all arguments are optional
+   * added in 1.3, see release notes for details
  * stop()
    * stops the translation
  * toLanguage( langCode OR language, format  )
@@ -83,8 +85,12 @@ If you included the language detection module too then you can use `$.language()
    * returns the `google.language.Languages` object (the available languages)
    * if the first argument is `true` it returns only the translatable languages
    * http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
+   * added in 1.3: if the last argument is an array containing languages then the results will be filtered based on them (see release notes for details)
  * isTranslatable( langCode OR language )
    * returns `true` if the languge is translatable, `false` if it's not and `undefined` it doesn't exist
+ * same(lang1, lang2)
+   * determines whether two languages are the same or not
+   * added in 1.3, see release notes for details
  * getBranding( opt_element, opt_options )
    * returns a "powered by Google" HTML DOM branding node as a jQuery object
    * This method is a static helper function that returns a "powered by Google" HTML DOM branding node to your application, and optionally attaches it to your document for the optional element. The purpose of this method is to ensure that your application has a simple way to comply with branding requirements.
@@ -97,11 +103,11 @@ If you included the language detection module too then you can use `$.language()
 The plugin initially was just a single file and you can get it like that too, but if you don't need some functionality you can use just the modules you want:
  * core (translation)
    * this contains the above helper functions and the translation stuff
- * jQuery.nodesContainingText
+ * jQuery.fn.nodesContainingText
    * this module has become a separate jQuery plugin: it returns those elements, which contain some text
    * you will most likely need this too, but it's not necessary
  * language detection
-   * this extends the core, cannot be used standalone
+   * removed since version 1.3
  * other smaller extensions:
    * ui: you can generate html elements containing the translatable languages (e.g. a dropdown menu)
    * progress: returns how much text has been translated, or updates a given jQuery UI progressbar component
