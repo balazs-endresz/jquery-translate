@@ -16,4 +16,4 @@ Override defaults with: `$.fn.nodesContainingText.defaults = {}`
  * each: function(){} (v1.1.1)
    * arguments: i, DOMelement, containing text
  * complete: function(){} (v1.1.1)
-   * arguments: array<DOMelement>, array<containing text>
+   * arguments: array`<DOMelement>`, array`<containing text>`
