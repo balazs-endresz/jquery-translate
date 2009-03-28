@@ -47,9 +47,9 @@ These are the default values after each option:
    * the returnAll option won't work, it will return the jQuery object immediately
    
  * data: true
-   * store source and translated text with $.data at 'translation.'+destLangCode+'.'+('html' OR attribute)
+   * store source and translated text with $.data at 'translation.'+langCode+'.'+('html' OR attribute)
    * like: $('p').data('translation.en.html') or $(':input').data('translation.en.value')
-   * Since 1.3 data is stored a bit differently, the above method is deprecated (will work until the next major version). See release notes for details.
+   * Since 1.3 data is stored a bit differently (`$(el).data("translation")[langCode][type]`), the above method is deprecated (will work until the next major version). See release notes for details.
  * walk: true
    * true: executes the script on all child elements too, on complex pages this can take a bit time
    * false: translates the given elements' .html(), doesn't get their children, generates more requests
