@@ -28,11 +28,11 @@ $.translate( ['some text', 'some other text'], { from:'de', to:'en', fromOrigina
 
 ==Options==
 
-Override defaults with: `$.translate.defaults={}`
+Override defaults with: `$.translate.defaults = {}`
 {{{
-  $.translate.defaults={ limit:1500 };
+  $.translate.defaults={ error: function(){ ... } };
   //or
-  $.translate.defaults.limit=1500;
+  $.translate.defaults.error = function(){ ... };
 }}}
 
 (The `result` object: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult )
@@ -55,6 +55,7 @@ These are the default values after each option:
    * timeout in ms
  * limit: 1000
    * Character limit for each call. If Google raises the limit you can set it here, but don't set it to lower values. This will only affect the nuber of calls, the whole text will be translated.
+   * Removed in v1.3, see release notes for details.
  * comments: false
    * false: removes html comments from the source text/array
    * true: comments will be translated too 
