@@ -1,8 +1,6 @@
 #summary General information
 #labels Featured
 
-*Since version 1.3 you can use `$.translate.someMethod()` but `$.translate().someMethod()` will work too! The documentation is being updated.*
-
 ==Usage==
 
 Simply include the plugin after jQuery, it loads all the necessary stuff from Google. (If you can load the jsapi.js or the language API before, they won't be loaded again.)
