@@ -5,8 +5,8 @@
 
 Simply include the plugin after jQuery, it loads all the necessary stuff from Google. (If you can load the jsapi.js or the language API before, they won't be loaded again.)
 {{{
-<script type="text/javascript" src="js/jquery-1.3.6.min.js"></script>
-<script type="text/javascript" src="js/jquery.translate-1.3.6.js"></script>
+<script type="text/javascript" src="js/jquery-1.3.7.min.js"></script>
+<script type="text/javascript" src="js/jquery.translate-1.3.7.js"></script>
 }}}
 
 If you want to use the plugin on page load in most cases you can call it inside `$(document).ready()` but in some cases you have to define a callback function to be executed when the Language API is loaded. It's not `$(document).ready()` but `$.translate.ready()`:
