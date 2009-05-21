@@ -3,7 +3,7 @@
 
 List of available languages: http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
 
-If you don't specify a source language it will be automatically detected. But in many cases it's better to set that too. You can use the long name of the language or just the language code ('en' == 'english').
+If you don't specify a source language it will be automatically detected. But in many cases it's better to set that too. You can use the long name of the language or just the language code ('en' or 'english') and it isn't case-sensitive either.
 
 {{{
 $(function(){ //on document ready
@@ -24,9 +24,9 @@ $(function(){ //on document ready
 
 ==Options==
 
-Override defaults with: `$.fn.translate.defaults={}`
+Override defaults with `$.fn.translate.defaults`:
 {{{
-  $.fn.translate.defaults={ returnAll:true };
+  $.fn.translate.defaults = { returnAll:true };
   //or
   $.fn.translate.defaults.returnAll = true;
 }}}
@@ -42,54 +42,54 @@ These are the default values after each option:
    * true: all translation will be cached (stored with $.data) and used if it's found, or translated to otherwise
    * if the text on the page doesn't change you can set it to true: this will return the translation immediately if it was stored before
  * async: false
-   * this prevents the browser from freezing on larger sites by executing each filtering iteration with a delay
+   * this prevents the browser from freezing on larger sites by executing each filtering iteration with a delay (it doesn't affect the request sent to Google)
    * you can set the length of the delay in ms, setting it true means 2 ms
    * the returnAll option won't work, it will return the jQuery object immediately
-   
  * data: true
-   * store source and translated text with $.data at 'translation.'+langCode+'.'+('html' OR attribute)
-   * like: $('p').data('translation.en.html') or $(':input').data('translation.en.value')
-   * Since 1.3 data is stored a bit differently (`$(el).data("translation")[langCode][type]`), the above method is deprecated (will work until the next major version). See release notes for details.
+   * store source and translated text with $.data
+   * `$(el).data("translation")[langCode][type]` where `type` is either `"html"` or the name of an attribute:
+   * $("p").data("translation")["en"]["html"] or $(":input").data("translation")["en"]["value"]
  * walk: true
-   * true: executes the script on all child elements too, on complex pages this can take a bit time
-   * false: translates the given elements' .html(), doesn't get their children, generates more requests
-   * this requires the jquery.nodesContainingText plugin, if you are using only the core module
+   * true: finds elements having textnodes and translates only their content; on very large and complex pages this might take some time (see the `async` option)
+   * false: translates the given elements' .html(), generates more requests
+   * this requires the jQuery.fn.nodesContainingText plugin (included along with other modules)
  * returnAll: false
-   * true: returns all elements, which have textnodes in a jQuery object 
+   * true: returns all elements, which have textnodes (see the `walk` option)
    * using .end() after this returns the caller object
    * false: returns the caller jQuery object
- * limit: 1000
-   * Character limit for each call. If Google raises the limit you can set it here. This will only affect the nuber of requests to Google, the whole text will be translated anyway. *As of v1.3 this doesn't affect the limit, it's determined internally. See release notes for details.*
- * not: ''
-   * selector - elements to leave out (script will be omitted either this is set or not)
+ * not: ""
+   * selector - elements to leave out (script, noscript, style, object and iframe elements will be omitted either this is set or not)
+   * doesn't work for elements having textnode siblings, as the whole content of their parent node will be translated (see the `walk` option)
  * replace: true
    * replace original text on the page with the translation
  * rebind: true
-   * rebind event handlers for elements translated as html (typically these are paragraphs)
+   * rebind event handlers for elements translated as html (see the `walk` option)
+
  * subject: true
-   * if text is given, only that html attribute will be translated
+   * if some text is given, only that html attribute will be translated
  * altAndVal: true
-   * translate alt and :button,:text,:reset's value attribute too when translating text/html (these don't have any textnodes, so they can be processed along with {subject:true})
+   * translate `alt` and `:button,:text,:reset`'s `value` attribute too when translating text/html 
+   * these don't have any textnodes, so they can be processed along with other nodes if the `subject` option is `true`
  * setLangAttr: false
-   * store destination language code in html lang attribute
+   * store destination language code in the html lang attribute for each element
    * true: set the 'lang' attribute
-   * false:don't set any attribute
+   * false: don't set any attribute
    * string: set that html attribute
  * comments: false
    * true: translates comments too when an element's .html() is tranlated, 
    * false: removes the comments, when an element's .html() is tranlated
-   * other cases comments are not translated
+   * comments might be only translated if they have textnode siblings (see the `walk` option)
 
 ===Callback functions===
 
 These are passed to the `options` too. You can use the internal methods after `this` inside these, and the object's properties are also available:
- * this.i
+ * this.i //the index of the current element
  * this.elements (array) // filtered elements, this.elements.end() returns the caller object (unfiltered)
  * this.translation (array)
  * this.source (array)
  * this.options
- * this.from
- * this.to
+ * this.from //langCode
+ * this.to //langCode
 {{{
 $('body').translate('en', 'de', {
   each: function(i){
@@ -106,15 +106,15 @@ $('body').translate('en', 'de', {
    * if you stop the translation with the internal stop() method it returns {message:'stopped'}
  * each: function(){}
    * executes after each element was translated
-   * arguments: i, DOMelement, `translation[i]`, `source[i]`, from, to, options, numberOfCalls
+   * arguments: i, DOMelement, `translation[i]`, `source[i]`, from, to, options
  * complete: function(){}
-   * arguments: original elements, filtered elements, array: transl, array: source, from, to, opt, numberOfCalls
+   * arguments: original elements, filtered elements, translation (array), source (array), from, to, options
    * the from argument is the sourceLangCode from the last part of the translation (if it was detected then that one)
  * onTimeout: function(){}
-   * the requests won't be aborted automatically (use this.stop inside it if you want to stop it)
+   * the requests won't be aborted automatically (use `this.stop()` inside it if you want to stop it)
    * arguments: filtered elements, from, to, options
  * timeout: 0
    * time after the onTimeout will fire (in ms)
 
 
-_In the comment below you may notice the copyEvents plugin: this is no longer needed (v1.1.5+), a bit different function is included in the plugin, which iterates through all the elements (unlike the original plugin, which only deals with the first item in a set)._
+_In the comment below you may notice the copyEvents plugin: this is no longer needed, a bit different function is included in the plugin._
