@@ -1,5 +1,4 @@
 #summary $( ).nodesContainingText([opt])
-#labels Featured
 
 This method method returns the deepest elements containing textnodes.
 If an element contains textnodes and other elements too then its .html() will be returned.
