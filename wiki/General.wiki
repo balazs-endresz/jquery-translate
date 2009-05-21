@@ -5,7 +5,7 @@
 
 ==Usage==
 
-Simply include the plugin after jQuery, it loads all the necessary stuff from Google. (If you can load the jsapi.js or the language API too before, they won't be loaded again.)
+Simply include the plugin after jQuery, it loads all the necessary stuff from Google. (If you can load the jsapi.js or the language API before, they won't be loaded again.)
 {{{
 <script type="text/javascript" src="js/jquery-1.3.6.min.js"></script>
 <script type="text/javascript" src="js/jquery.translate-1.3.6.js"></script>
@@ -50,9 +50,11 @@ These functions are described in depth in the other wiki pages:
  * [TranslateFunction $.translate( text, lang, ... ) ]
  * [Extensions Additional extensions]
 
+A typical implementation is in the links section on the main page.
+
 ==Internal methods ==
 
-These methods can be called after `$.translate` and inside callback functions too after `this`:
+These methods can be called after `$.translate`, and inside callback functions too after `this`:
 
 {{{
 $('body').translate('english',{
@@ -73,9 +75,9 @@ console.log( lang );
    * executes the function supplied if/when the language API is loaded, see above
  * load( APIkey, APIname, version )
    * loads jsapi.js and the Language API, all arguments are optional
-   * added in 1.3, see release notes for details
  * stop()
-   * stops the translation
+   * stops the translation 
+   * this can't be used as a static method, only after `this` inside callback functions
  * toLanguage( langCode OR language, format  )
    * returns the name of the language based on the first argument
    * `format` can be: 'lowercase', 'uppercase', 'capitalize' (default is uppercase)
@@ -85,17 +87,17 @@ console.log( lang );
    * returns the `google.language.Languages` object (the available languages)
    * if the first argument is `true` it returns only the translatable languages
    * http://code.google.com/apis/ajaxlanguage/documentation/reference.html#LangNameArray
-   * added in 1.3: if the last argument is an array containing languages then the results will be filtered based on them (see release notes for details)
+   * if the last argument is an array containing languages then the results will be filtered based on them
  * isTranslatable( langCode OR language )
    * returns `true` if the languge is translatable, `false` if it's not and `undefined` it doesn't exist
  * same(lang1, lang2)
    * determines whether two languages are the same or not
-   * added in 1.3, see release notes for details
+   * this might be useful as the plugin accepts both e.g "en" or "English", and isn't case-sensitive either
  * getBranding( opt_element, opt_options )
-   * returns a "powered by Google" HTML DOM branding node as a jQuery object
-   * This method is a static helper function that returns a "powered by Google" HTML DOM branding node to your application, and optionally attaches it to your document for the optional element. The purpose of this method is to ensure that your application has a simple way to comply with branding requirements.
+   * This method is a static helper function that returns a "powered by Google" HTML DOM branding node as a jQuery object, and optionally attaches it to the optional element. The purpose of this method is to ensure that your application has a simple way to comply with branding requirements.
    * opt_element - The optional element or element id to attach the branding into the DOM.
    * opt_options - The optional options map. Currently the only supported key value is type which can accept a value of 'vertical' or 'horizontal'
+   * http://code.google.com/apis/ajaxlanguage/documentation/reference.html#branding
 
 
 ==Components==
@@ -135,6 +137,8 @@ The plugin initially was just a single file and you can get it like that too, bu
 
 ==Some sites using this plugin==
 
- * [http://www.texasonline.com www.texasonline.com]
+ * Send me the link of your site if you'd like it listed here. If I come across one I'll put it here without asking, so that I don't have to write demo apps. Let me know if you don't want it listed.
+ * [http://www.texasonline.com]
+ * [http://webupd8.blogspot.com]
 
-If you have questions, noticed some bug, or any ideas feel free to write here or by mail.
+If you have questions, noticed some bug, or have any ideas feel free to write here or by mail. Also, *using the bug tracker is appreciated*!
