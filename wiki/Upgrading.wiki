@@ -77,7 +77,7 @@ $.translate(function(){ //when the api is loaded
  * `extend` method: `$.translate.extend({...})` and `$.translate.fn.extend({...})` (works the same way as `$.extend`)
  * `load` method
 
-===Some other noteable changes===
+===Some other notable changes===
 
  * The length of each chunks of text is now determined by their urlencoded length, which greatly increases reliability. (The GET request sent to Google has to be at most 2000 (urlencoded) characters long due to mainly IE's restriction)
  * limit option has been removed, because it would have different meaning and isn't necessary any more (see the previous point)
