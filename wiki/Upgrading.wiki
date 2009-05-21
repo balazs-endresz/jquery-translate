@@ -1,4 +1,4 @@
-#Upgrading to the latest version
+#summary Upgrading to the latest version
 
 *This page is supposed to ease the transition to newer versions of the plugin. Only the important changes are listed here, for a more complete list see the [http://plugins.jquery.com/node/2328/release release notes].*
 
