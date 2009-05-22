@@ -102,7 +102,7 @@ $('body').translate('en', 'de', {
    * arguments: elements (jQuery object), from, to, options
    * these are the filtered elements if the walk option was true (use .end() to return the original set)
  * error: function(){}
-   * google's results.error will be passed (an error stops the script completely)
+   * google's [http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult results.error object] will be passed (an error stops the script completely)
    * if you stop the translation with the internal `stop()` method it returns {message:'stopped'}
  * each: function(){}
    * executes after each element was translated
