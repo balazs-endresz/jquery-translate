@@ -6,19 +6,23 @@ If you don't specify a source language it will be automatically detected. But in
 
 {{{
 //to german from any language:
-$.translate( 'some text', 'de' );
-
-//from english to german:
-$.translate( 'some text', 'en', 'de' );
-
-//with options:
 $.translate( 'some text', 'de', {
-  each: function(i, translation){ }
+  complete: function(translation){ console.log(translation); }
 });
 
-//translate an array:
+//from english to german:
+$.translate( 'some text', 'en', 'de', {
+  complete: function(translation){ console.log(translation); }
+});
+
+//translate an array with `each` callback:
+$.translate( ['some text', 'some other text'], 'de', {
+  each: function(i, translation){ console.log(translation[i]); }
+});
+
+//translate an array with `complete` callback, and source language:
 $.translate( ['some text', 'some other text'], 'en', 'de', {
-  complete: function(translation){ }
+  complete: function(translation){ console.log(translation); }
 });
 
 //you can set the languges in the options too (setting as a separate parameter like above overrides it):
