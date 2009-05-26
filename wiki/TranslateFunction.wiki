@@ -26,7 +26,11 @@ $.translate( ['some text', 'some other text'], 'en', 'de', {
 });
 
 //you can set the languges in the options too (setting as a separate parameter like above overrides it):
-$.translate( ['some text', 'some other text'], { from:'de', to:'en', fromOriginal: true, toggle:true } );
+$.translate( ['some text', 'some other text'], { 
+  from:'de', 
+  to:'en', 
+  complete: function(translation){ console.log(translation); }
+});
 
 }}}
 
