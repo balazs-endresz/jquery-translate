@@ -32,7 +32,7 @@ $.translate.ready(function(){
 alert( $.translate.getLanguages() );
 });  //things load, function fires when it's done
 }}}
- * using $.translate("text", {...}) and $("#content").translate({...}) triggers .load() automatically, you don't need to put them in a ready callback, unlike .getLanguages() in the previous example.
+ * using $.translate("text", {...}) and $("#content").translate({...}) triggers .load() automatically, you don't need to put them in a ready callback.
 
  * if the second argument in the ready callback is true then things don't load automatically:
 {{{
