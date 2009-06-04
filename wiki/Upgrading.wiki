@@ -16,7 +16,7 @@
  * utility methods are basically static, but copied over on instantiation, i.e. you can now use `$.translate.getLanguages()` instead of `$.translate().getLanguages()` but the latter will work too
 
  * $.data storage: the old method is deprecated (it will work until the next major version)
-   * old: `$(el).data("translation." + language + "." + type + "html");`
+   * old: `$(el).data("translation." + language + "." + type);`
    * new: `$(el).data("translation")[language][type];`
    * this is much more useful in many cases
 
