@@ -1,0 +1,34 @@
+#summary Using the core module with Ariel Flesler's Textnode Translator
+
+Sometimes inline html tags can be rearranged (merged, created, removed) during the translation, because the translation service can't exactly determine their position in the other language. In some cases this can lead to problems if there are events bound to the translated elements.
+
+By using Ariel Flesler's [http://flesler.blogspot.com/2008/05/textnode-translator-for-javascript.html Textnode Translator] you can avoid these issues, but most of the option listed on the TranslateMethod page won't work.
+
+==Usage==
+
+{{{
+function translateTextNodes(root, srcLang, destLang, complete){
+
+  var replaceFunctions = [];
+  var contents = [];
+  var tr = new Translator( function( str, fn ){
+    contents.push( str );
+    replaceFunctions.push( fn );
+  });
+  tr.sync = false;
+
+  tr.traverse( root.jquery ? root[0] : root );
+
+  $.translate( contents, srcLang, destLang, {
+    each: function( i, translation ){
+      replaceFunctions[ i ]( translation );
+    },
+    complete: complete || function(){}
+  })
+
+}
+}}}
+
+{{{
+translateTextNodes( document.body, "en", "de" )
+}}}																
