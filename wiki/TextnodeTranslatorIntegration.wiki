@@ -14,7 +14,7 @@ function translateTextNodes(root, srcLang, destLang, complete){
   var tr = new Translator( function( str, fn ){
     contents.push( str );
     replaceFunctions.push( fn );
-  });
+  } /*, filterFunction*/ );
   tr.sync = false;
 
   tr.traverse( root.jquery ? root[0] : root );
