@@ -31,4 +31,6 @@ function translateTextNodes(root, filter, srcLang, destLang, complete){
 
 {{{
 translateTextNodes( document.body, function(node){ return node.nodeName != 'A'; }, "en", "de" )
-}}}																
+}}}
+
+You can use a jQuery object as the first argument as well.											
