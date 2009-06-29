@@ -7,14 +7,14 @@ By using Ariel Flesler's [http://flesler.blogspot.com/2008/05/textnode-translato
 ==Usage==
 
 {{{
-function translateTextNodes(root, srcLang, destLang, complete){
+function translateTextNodes(root, filter, srcLang, destLang, complete){
 
   var replaceFunctions = [];
   var contents = [];
   var tr = new Translator( function( str, fn ){
     contents.push( str );
     replaceFunctions.push( fn );
-  } /*, filterFunction*/ );
+  }, filter || function(){} );
   tr.sync = false;
 
   tr.traverse( root.jquery ? root[0] : root );
