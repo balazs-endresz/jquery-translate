@@ -138,5 +138,6 @@ The plugin initially was just a single file and you can get it like that too, bu
  * Send me the link of your site if you'd like it listed here. If I come across one I'll put it here without asking, so that I don't have to write demo apps. Let me know if you don't want it listed.
  * [http://www.texasonline.com] (using a very old version)
  * [http://webupd8.blogspot.com]
+ * [http://www.seconddrawer.com.au]
 
 If you have questions, noticed some bug, or have any ideas feel free to write here or by mail. Also, *using the bug tracker is appreciated*!
