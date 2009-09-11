@@ -139,5 +139,6 @@ The plugin initially was just a single file and you can get it like that too, bu
  * [http://www.texasonline.com] (using a very old version)
  * [http://webupd8.blogspot.com]
  * [http://www.seconddrawer.com.au]
+ * [http://www.issaquah.wednet.edu]
 
 If you have questions, noticed some bug, or have any ideas feel free to write here or by mail. Also, *using the bug tracker is appreciated*!
