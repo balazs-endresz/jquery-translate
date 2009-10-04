@@ -77,6 +77,8 @@ These are the default values after each option:
  * separators: /\.\?\!;:/
    * a regex that specifies the end of a sentence
 
+==Public properties==
+
 You can use the internal methods after `this` inside the callback functions, and the object's properties are also available:
  * this.i //the index of the current element
  * this.translation (array) //if just a single string was translated this is a string too
