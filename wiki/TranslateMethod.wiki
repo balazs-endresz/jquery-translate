@@ -34,7 +34,7 @@ Override defaults with `$.fn.translate.defaults`:
 
 These are the default values after each option:
 
- * fromOriginal: false /* default changed to true in v1.4*/
+ * fromOriginal: false / default changed to `true` in v1.4 /
    * use only if you have specified a source language
    * if you have translated elements to a language and want to translate them again this will force the plugin to use the original text (from the language you specified to translate from) as the source text
    * `toggle` and `data` will be true automatically
@@ -49,8 +49,7 @@ These are the default values after each option:
    * store source and translated text with $.data
    * `$(el).data("translation")[langCode][type]` where `type` is either `"html"` or the name of an attribute:
    * $("p").data("translation")["en"]["html"] or $(":input").data("translation")["en"]["value"]
-   * *changed in 1.4.0:*
-   * "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
+   * *changed in 1.4.0:* "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
 
  * walk: true
    * true: finds elements having textnodes and translates only their content; on very large and complex pages this might take some time (see the `async` option)
