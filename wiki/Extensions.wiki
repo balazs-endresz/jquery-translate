@@ -29,7 +29,7 @@ $.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.3.9
 
 On other sites this will only work if jQuery was included before. Also, you have to append it to an existing element: `.appendTo('h1')` or `.prependTo('body')`
 
-Since v1.4, you can also use a config object as the only argument, for example these are the defaults:
+Since *v1.4*, you can also use a config object as the only argument, for example these are the defaults:
 {{{
 $.translate.ui({
   tags: ["select", "option"],
