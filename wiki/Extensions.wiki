@@ -36,7 +36,7 @@ $.translate.ui({
   //a function that filters the languages:
   filter: $.translate.isTranslatable,
   //a function that returns the text to display based on the language code:
-  label: $.translate.toNativeLanguage || 
+  label: $.translate.toNativeLanguage ||
          function(langCode, lang){
            return $.translate.capitalize(lang);
          },
@@ -65,3 +65,23 @@ The progressbar will be automatically updated as each element gets translated.
 Without arguments it will return a number between 0 and 100, with which you can manually update the progressbar component or just update some field on the page.
 
 Official jQuery UI demo: http://ui.jquery.com/demos/progressbar/
+
+
+=Native language names=
+
+ * $.translate.nativeLanguages
+{{{
+$.translate.nativeLanguages = {
+  "sq":"Shqipe",
+  "ar":"العربية",
+  "bg":"Български",
+  "ca":"Català",
+  "zh":"中文",
+  "zh-CN":"简体中文",
+  "zh-TW":"繁體中文",
+  "nl":"Nederlands",
+  "en":"English",
+...
+};
+}}}
+ * $.translate.toNativeLanguage(lang)
