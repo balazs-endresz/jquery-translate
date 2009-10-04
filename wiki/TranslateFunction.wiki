@@ -62,9 +62,20 @@ These are the default values after each option:
  * timeout: 0
    * timeout in ms
  * comments: false
+   * removed in v1.4
    * false: removes html comments from the source text/array
    * true: comments will be translated too 
    
+===options added in v1.4===
+ * stripWhitespace: true
+ * stripScripts: true
+ * stripComments: true 
+ * limit: 1750
+   * here you can specify how long the url-encoded text should be that is sent to the Language API
+   * the whole url must be less than 2000 characters long including the domain name and other parameters
+   * you can increase this value slightly, but if it gets too large some requests will fail
+ * separators: /\.\?\!;:/
+   * a regex that specifies the end of a sentence
 
 You can use the internal methods after `this` inside the callback functions, and the object's properties are also available:
  * this.i //the index of the current element
