@@ -72,7 +72,7 @@ Official jQuery UI demo: http://ui.jquery.com/demos/progressbar/
 
 These extensions were introduced in v1.4.0, but there might be some changes regarding these. The `translateLanguages` function is currently included in the `native` extension, but for practical reasons it is likely to be moved to the `paralell` extension.
 
-==Native language names==
+===Native language names===
 
  * $.translate.nativeLanguages
 {{{
@@ -91,7 +91,7 @@ $.translate.nativeLanguages = {
 }}}
  * $.translate.toNativeLanguage(lang)
 
-=paralell=
+===paralell===
 
 example usage:
 
