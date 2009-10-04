@@ -66,8 +66,13 @@ Without arguments it will return a number between 0 and 100, with which you can 
 
 Official jQuery UI demo: http://ui.jquery.com/demos/progressbar/
 
+----
 
-=Native language names=
+= Extensions added in *v1.4.0* =
+
+These extensions were introduced in v1.4.0, but there might be some changes regarding these. The `translateLanguages` function is currently included in the `native` extension, but for practical reasons it is likely to be moved to the `paralell` extension.
+
+==Native language names==
 
  * $.translate.nativeLanguages
 {{{
@@ -85,3 +90,27 @@ $.translate.nativeLanguages = {
 };
 }}}
  * $.translate.toNativeLanguage(lang)
+
+=paralell=
+
+example usage:
+
+{{{
+
+translateLanguages: function(languages, callback){
+  delete languages.UNKNOWN;
+  var deferred = []; //instances to be executed later are collected here
+  $.each(languages, function(l, lc){
+    if( $.translate.nativeLanguages[lc] ) return;
+      var deferredInstance = 
+               $.translate.defer( $.translate.capitalize(l), "en", lc, 
+                         function(tr){ $.translate.nativeLanguages[lc] = tr; });
+      deferred.push( deferredInstance );
+  });
+
+  if(!deferred.length)
+    callback();
+  else
+    $.translate.run(deferred, callback);
+},
+}}}
