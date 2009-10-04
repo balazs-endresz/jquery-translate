@@ -34,7 +34,7 @@ Override defaults with `$.fn.translate.defaults`:
 
 These are the default values after each option:
 
- * fromOriginal: false
+ * fromOriginal: false /* default changed to true in v1.4*/
    * use only if you have specified a source language
    * if you have translated elements to a language and want to translate them again this will force the plugin to use the original text (from the language you specified to translate from) as the source text
    * `toggle` and `data` will be true automatically
@@ -49,6 +49,9 @@ These are the default values after each option:
    * store source and translated text with $.data
    * `$(el).data("translation")[langCode][type]` where `type` is either `"html"` or the name of an attribute:
    * $("p").data("translation")["en"]["html"] or $(":input").data("translation")["en"]["value"]
+   * *changed in 1.4.0:*
+   * "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
+
  * walk: true
    * true: finds elements having textnodes and translates only their content; on very large and complex pages this might take some time (see the `async` option)
    * false: translates the given elements' .html(), generates more requests
@@ -76,9 +79,22 @@ These are the default values after each option:
    * false: don't set any attribute
    * string: set that html attribute
  * comments: false
+   * removed in v1.4
    * true: translates comments too when an element's .html() is tranlated, 
    * false: removes the comments, when an element's .html() is tranlated
    * comments might be only translated if they have textnode siblings (see the `walk` option)
+
+===options added in v1.4===
+ * stripWhitespace: true
+ * stripScripts: true
+ * stripComments: true 
+ * limit: 1750
+   * here you can specify how long the url-encoded text should be that is sent to the Language API
+   * the whole url must be less than 2000 characters long including the domain name and other parameters
+   * you can increase this value slightly, but if it gets too large some requests will fail
+ * separators: /\.\?\!;:/
+   * a regex that specifies the end of a sentence
+
 
 ===Callback functions===
 
@@ -101,6 +117,7 @@ $('body').translate('en', 'de', {
  * start: function(){}
    * arguments: elements (jQuery object), from, to, options
    * these are the filtered elements if the walk option was true (use .end() to return the original set)
+   * *v1.4.0:* arguments: filtered elements, source, from, to, options
  * error: function(){}
    * google's [http://code.google.com/apis/ajaxlanguage/documentation/reference.html#translateResult results.error object] will be passed (an error stops the script completely)
    * if you stop the translation with the internal `stop()` method it returns {message:'stopped'}
@@ -109,10 +126,13 @@ $('body').translate('en', 'de', {
    * arguments: i, DOMelement, `translation[i]`, `source[i]`, from, to, options
  * complete: function(){}
    * arguments: original elements, filtered elements, translation (array), source (array), from, to, options
+   * *v1.4.0:* the `original elements` object was removed, use elements.end() instead
    * the from argument is the sourceLangCode from the last part of the translation (if it was detected then that one)
  * onTimeout: function(){}
    * the requests won't be aborted automatically (use `this.stop()` inside it if you want to stop it)
    * arguments: filtered elements, from, to, options
+   * *v1.4.0:* arguments: filtered elements, source, from, to, options
+   * use elements.end() to get the original set of elements
  * timeout: 0
    * time after the onTimeout will fire (in ms)
 
