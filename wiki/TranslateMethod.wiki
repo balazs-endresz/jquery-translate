@@ -19,6 +19,9 @@ $(function(){ //on document ready
   
   //you can set the languges in the options too (setting as a separate parameter like above overrides it):
   $('body').translate( { from: 'en', to: 'de', fromOriginal: true} );
+
+  //as of v1.4 you can also pass a complete callback as the third argument:
+  $('body').translate('en','de', function(){ alert("complete"); });
 })
 }}}
 
