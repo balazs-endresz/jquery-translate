@@ -32,6 +32,10 @@ $.translate( ['some text', 'some other text'], {
   complete: function(translation){ console.log(translation); }
 });
 
+//as of v1.4 you can specify the complete callback without the config object:
+$.translate( ['some text', 'some other text'], 'de', 'en',  function(translation){
+     console.log(translation); 
+});
 }}}
 
 ==Options==
