@@ -50,7 +50,7 @@ These functions are described in depth in the other wiki pages:
 
 A typical implementation is in the links section on the main page.
 
-==Internal methods ==
+==Public methods and properties==
 
 These methods can be called after `$.translate`, and inside callback functions too after `this`:
 
@@ -72,6 +72,7 @@ console.log( lang );
  * ready( function(){...} )
    * executes the function supplied if/when the language API is loaded, see above
  * load( APIkey, APIname, version )
+   * *v1.4:*  apiName argument removed
    * loads jsapi.js and the Language API, all arguments are optional
  * stop()
    * stops the translation 
@@ -97,7 +98,43 @@ console.log( lang );
    * opt_options - The optional options map. Currently the only supported key value is type which can accept a value of 'vertical' or 'horizontal'
    * http://code.google.com/apis/ajaxlanguage/documentation/reference.html#branding
 
+Added in *v1.4:*
+   * capitalize :: function
+   * isReady :: boolean
+     * shows if the translation API is loaded
+   * languageCodeMap :: object
+     * you can specify alternative language codes here
+     * in v1.4.0 it looks like this:
+{{{
+$.translate.languageCodeMap = {
+  "he": "iw",
+  "zlm": "ms",
+  "zh-hans": "zh-CN",
+  "zh-hant": "zh-TW"
+};
+}}}
+ * $.translate.overload :: array `*` array `*` array
+{{{
+ //you can overload the $.translate and $.fn.translate functions like this:
+ $.translate.overload.push([
+   [String, String, Function, Function], ["from", "to", "each", "complete"]
+ ]);
+}}}
 
+You can specify other translation sevices too by overriding `$.translate.fn._translate`:
+{{{
+//the Google API won't be loaded, you have to load the other service manually
+$.translate.isReady = true; 
+   
+//this is a basic implementation for the Google Language API:
+$.translate.fn._translate = function(){ //or $.translate.prototype._translate
+  var instance = this;
+  google.language.translate(this.rawSourceSub, this.from, this.to, function(result){
+    instance.rawTranslation += result.translation;
+    instance._process();
+  });
+};
+}}}
 ==Components==
 
 The plugin initially was just a single file and you can get it like that too, but if you don't need some functionality you can use just the modules you want:
