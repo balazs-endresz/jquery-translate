@@ -135,7 +135,7 @@ $.translate.fn._translate = function(){ //or $.translate.prototype._translate
   });
 };
 }}}
-==Components==
+==Components (before v1.4)==
 
 The plugin initially was just a single file and you can get it like that too, but if you don't need some functionality you can use just the modules you want:
  * core (translation)
@@ -173,6 +173,8 @@ The plugin initially was just a single file and you can get it like that too, bu
 ==Some sites using this plugin==
 
  * Send me the link of your site if you'd like it listed here. If I come across one I'll put it here without asking, so that I don't have to write demo apps. Let me know if you don't want it listed.
+ * [http://wordpress.org/extend/plugins/google-ajax-translation/ Wordpress plugin]
+ * [http://simos.info/blog]
  * [http://www.texasonline.com] (using a very old version)
  * [http://webupd8.blogspot.com]
  * [http://www.seconddrawer.com.au]
