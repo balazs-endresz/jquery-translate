@@ -121,20 +121,7 @@ $.translate.languageCodeMap = {
  ]);
 }}}
 
-You can specify other translation sevices too by overriding `$.translate.fn._translate`:
-{{{
-//the Google API won't be loaded, you have to load the other service manually
-$.translate.isReady = true; 
-   
-//this is a basic implementation for the Google Language API:
-$.translate.fn._translate = function(){ //or $.translate.prototype._translate
-  var instance = this;
-  google.language.translate(this.rawSourceSub, this.from, this.to, function(result){
-    instance.rawTranslation += result.translation;
-    instance._process();
-  });
-};
-}}}
+
 ==Components (before v1.4)==
 
 The plugin initially was just a single file and you can get it like that too, but if you don't need some functionality you can use just the modules you want:
