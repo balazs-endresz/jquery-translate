@@ -40,7 +40,7 @@ $.translate.ui({
          function(langCode, lang){
            return $.translate.capitalize(lang);
          },
-  //wheter to include the `UNKNOWN:""` along with the languages:
+  //whether to include the UNKNOWN:"" along with the languages:
   includeUnknown: false
 }).prependTo('body');
 }}}
