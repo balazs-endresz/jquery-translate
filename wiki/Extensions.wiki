@@ -34,7 +34,7 @@ Since *v1.4*, you can also use a config object as the only argument, for example
 $.translate.ui({
   tags: ["select", "option"],
   //a function that filters the languages:
-  filter: $.translate.isTranslatable,
+  filter: $.translate.isTranslatable, //this can be an array of languages too
   //a function that returns the text to display based on the language code:
   label: $.translate.toNativeLanguage ||
          function(langCode, lang){
