@@ -63,7 +63,7 @@ download builder: http://jquery-translate.appspot.com/
  * new option: separators: a regex that specifies the end of a sentence, default: /\.\?\!;:/
  * data changes: "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
  * $.translate.isReady: true if the Language API is loaded
- * $.translate.fn._translate can be overridden allowing to plug in other translation services:
+ * $.translate.fn.`_`translate can be overridden allowing to plug in other translation services:
 {{{
 	//the Google API won't be loaded, you have to load the other service manually
 	$.translate.isReady = true; 
