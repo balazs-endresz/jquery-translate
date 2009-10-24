@@ -97,6 +97,8 @@ $.translate.nativeLanguages = {
  * $.translate.toNativeLanguage(lang)
 
 ===paralell===
+ * $.translate.defer
+ * $.translate.run
 
 example usage:
 
