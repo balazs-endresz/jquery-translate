@@ -29,7 +29,8 @@ $.getScript('http://jquery-translate.googlecode.com/files/jquery.translate-1.3.9
 
 On other sites this will only work if jQuery was included before. Also, you have to append it to an existing element: `.appendTo('h1')` or `.prependTo('body')`
 
-*IMPORTANT*
+*IMPORTANT!*
+
 The html structure of the dropdown changed in v1.4: now `$(this).val()` in the above code returns the exact language code, not the displayed text. You might have to change you're code accordingly!
 
 Since *v1.4*, you can also use a config object as the only argument, for example these are the defaults:
