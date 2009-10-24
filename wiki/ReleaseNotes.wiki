@@ -1,7 +1,7 @@
 #Release Notes
 
 
-==1.4.1==
+===1.4.1===
 
 * "yi" is listed in the rtl languages
 * fixed: the second translation didn't work properly
