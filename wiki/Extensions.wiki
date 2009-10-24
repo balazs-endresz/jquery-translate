@@ -74,7 +74,7 @@ Official jQuery UI demo: http://ui.jquery.com/demos/progressbar/
 
 = Extensions added in *v1.4.0* =
 
-These extensions were introduced in v1.4.0, but there might be some changes regarding these. The `translateLanguages` function is currently included in the `native` extension, but for practical reasons it is likely to be moved to the `paralell` extension.
+The `translateLanguages` function ~~is currently included in the `native` extension~~ was removed in v1.4.1, you can copy it from here.
 
 ===Native language names===
 
@@ -91,6 +91,7 @@ $.translate.nativeLanguages = {
   "nl":"Nederlands",
   "en":"English",
 ...
+...
 };
 }}}
  * $.translate.toNativeLanguage(lang)
@@ -100,7 +101,7 @@ $.translate.nativeLanguages = {
 example usage:
 
 {{{
-
+//you can generate the first argument with $.translate.getLanguages
 translateLanguages: function(languages, callback){
   delete languages.UNKNOWN;
   var deferred = []; //instances to be executed later are collected here
