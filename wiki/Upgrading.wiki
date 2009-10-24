@@ -4,6 +4,28 @@
 *This page is supposed to ease the transition to newer versions of the plugin. Only the important changes are listed here, for a more complete list see the [http://plugins.jquery.com/node/2328/release release notes].*
 
 ----
+=1.4.0=
+
+* $.translate.ui: 
+  * The html structure changed: when generating a dropdown the value of each field is now a language code,
+  which means jQuery's `.val()` method now returns a language code instead of the displayed text.
+  You have the modify you're code accordingly if you compared for example "English" to that value, now you have to do that with "en"!
+
+* $.data storage: the old method is now removed
+  * old: $(el).data("translation." + language + "." + type);
+  * new: $(el).data("translation")[language][type];
+* $.data changes: "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
+
+* $.fn.translate callback function arguments changed: 
+  * `complete`: the second `elements` object was removed, use this.elements.end() instead
+  * `start` and `onTimeout`: this.elements is inserted before this.source, not replaced with it
+
+* the `fromOriginal` option is now defaults to true (you can omit this option now)
+  * if you haven't used this option before you might have to make changes to your code
+
+* `comments` option removed, these can be used instead: stripWhitespace:true, stripScripts:true, stripComments:true
+
+----
 
 *1.3.6*: script, noscript, style, object, and iframe tags are all excluded by default
 
