@@ -3,10 +3,10 @@
 
 ===1.4.1===
 
-* "yi" is listed in the rtl languages
-* fixed: the second translation didn't work properly
-* fixed: stripScripts:false didn't work
-* $.translate.translateLanguages function removed, you can find it in the wiki
+ * "yi" is listed in the rtl languages
+ * fixed: the second translation didn't work properly
+ * fixed: stripScripts:false didn't work
+ * $.translate.translateLanguages function removed, you can find it in the wiki
 
 =1.4.0=
 
