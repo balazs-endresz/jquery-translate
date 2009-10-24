@@ -10,10 +10,8 @@
 
 =1.4.0=
 
-http://code.google.com/p/jquery-translate/
 download builder: http://jquery-translate.appspot.com/
 
-1.4.0
  * $.translate.ui "overhaul"
  * new: native language support
    * $.translate.nativeLanguages
