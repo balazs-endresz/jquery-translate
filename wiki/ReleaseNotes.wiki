@@ -22,7 +22,7 @@ download builder: http://jquery-translate.appspot.com/
  * toLanguage enhanced
  * new: $.translate.languageCodeMap
    * alternative language code scan be specified here
-   * see issue 11: http://code.google.com/p/jquery-translate/issues/detail?id=11
+   * see issue 11
 {{{
 	//keys must be lower case, and values must equal to a 
 	//language code specified in the Language API
