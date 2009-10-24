@@ -8,7 +8,7 @@
 * fixed: stripScripts:false didn't work
 * $.translate.translateLanguages function removed, you can find it in the wiki
 
-===1.4.0===
+=1.4.0=
 
 http://code.google.com/p/jquery-translate/
 download builder: http://jquery-translate.appspot.com/
