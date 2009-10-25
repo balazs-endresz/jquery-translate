@@ -1,7 +1,7 @@
 #summary Most important changes in latest versions
 #labels Featured
 
-*This page is supposed to ease the transition to newer versions of the plugin. Only those changes are listed here that affect backwards compatibility, for a more complete list including new features see the ReleaseNotes.*
+*This page is supposed to ease the transition to newer versions of the plugin. Only those changes are listed here that affect backwards compatibility, for a more complete list including new features see the ReleaseNotes (before v1.4:  [http://plugins.jquery.com/node/2328/release]).*
 
 ----
 =1.4.0=
