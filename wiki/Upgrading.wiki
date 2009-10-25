@@ -12,8 +12,8 @@
   You have the modify you're code accordingly if you compared for example "English" to that value, now you have to do that with "en"!
 
  * $.data storage: the old method is now removed
-   * old: $(el).data("translation." + language + "." + type);
-   * new: $(el).data("translation")[language][type];
+   * old: `$(el).data("translation." + language + "." + type);`
+   * new: `$(el).data("translation")[language][type];`
  * $.data changes: "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
 
  * $.fn.translate callback function arguments changed: 
