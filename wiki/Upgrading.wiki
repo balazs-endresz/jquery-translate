@@ -14,7 +14,7 @@
  * $.data storage: the old method is now removed
    * old: `$(el).data("translation." + language + "." + type);`
    * new: `$(el).data("translation")[language][type];`
- * $.data changes: "$val" and "$html" is used instead of "value" and "html" ("attribute" can be used more safely)
+ * $.data changes: `"$val"` and `"$html"` is used as `type` instead of `"value"` and `"html"` ("attribute" can be used more safely)
 
  * $.fn.translate callback function arguments changed: 
    * `complete`: the second `elements` object was removed, use this.elements.end() instead
