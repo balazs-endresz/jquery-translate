@@ -6,6 +6,8 @@ Sometimes inline html tags can be rearranged (merged, created, removed) during t
 
 Since 1.4.2 it supports `fromOriginal, toggle, data, setLangAttr, replace` options, so it should work just like `.translate()`!
 
+The translation data is stored at `$(el).data("translation")[language]` in an array.
+
 You have to use the `translateTextNodes` jQuery method:
 
 
