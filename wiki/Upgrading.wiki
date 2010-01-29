@@ -5,10 +5,10 @@
 
 ----
 *1.4.3*
- * new option: parallel 
+ * new option: `parallel`
    * requests can be sent in parallel to speed up the translation
-   * false or zero: requests are sent after each response is recieved
-   * true: requests are sent all at once (can hang larger pages)
+   * `false` or zero: requests are sent after each response is recieved
+   * `true`: requests are sent all at once (can hang larger pages)
    * number: the delay in milliseconds after each request is initiated
 
 *1.4.2*
