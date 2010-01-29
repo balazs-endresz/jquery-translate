@@ -81,6 +81,13 @@ These are the default values after each option:
  * separators: /\.\?\!;:/
    * a regex that specifies the end of a sentence
 
+ * parallel (added in 1.4.3)
+   * requests can be sent in parallel to speed up the translation
+   * false or zero: requests are sent after each response is recieved
+   * true: requests are sent all at once (can hang larger pages)
+   * number: the delay in milliseconds after each request is initiated
+
+
 ==Public properties==
 
 You can use the internal methods after `this` inside the callback functions, and the object's properties are also available:
