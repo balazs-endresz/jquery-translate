@@ -4,6 +4,13 @@
 *This page is supposed to ease the transition to newer versions of the plugin. Only those changes are listed here that affect backwards compatibility, for a more complete list including new features see the [http://plugins.jquery.com/node/2328/release release notes ].*
 
 ----
+*1.4.3*
+ * new option: parallel 
+   * requests can be sent in parallel to speed up the translation
+   * false or zero: requests are sent after each response is recieved
+   * true: requests are sent all at once (can hang larger pages)
+   * number: the delay in milliseconds after each request is initiated
+
 *1.4.2*
  * `$(...).translateTextNodes()` has mostly the same functionality as `$(...).translate()` (TextnodeTranslatorIntegration)
 
