@@ -106,6 +106,8 @@ Added in *v1.4:*
      * you can specify alternative language codes here
      * in v1.4.0 it looks like this:
 {{{
+//keys must be lower case, and values must equal to a 
+//language code specified in the Language API
 $.translate.languageCodeMap = {
   "he": "iw",
   "zlm": "ms",
