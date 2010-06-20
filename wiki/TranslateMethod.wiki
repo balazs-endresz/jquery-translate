@@ -45,7 +45,7 @@ These are the default values after each option:
    * true: all translation will be cached (stored with $.data) and used if it's found, or translated to otherwise
    * if the text on the page doesn't change you can set it to true: this will return the translation immediately if it was stored before
  * async: false
-   * this prevents the browser from freezing on larger sites by executing each filtering iteration with a delay (it doesn't affect the request sent to Google)
+   * this prevents the browser from freezing on larger sites by executing each DOM filtering iteration with a delay (it doesn't affect the request sent to Google)
    * you can set the length of the delay in ms, setting it true means 2 ms
    * the returnAll option won't work, it will return the jQuery object immediately
  * data: true
