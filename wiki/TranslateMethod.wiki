@@ -101,6 +101,11 @@ These are the default values after each option:
    * false or zero: requests are sent after each response is recieved
    * true: requests are sent all at once (can hang larger pages)
    * number: the delay in milliseconds after each request is initiated
+===options added in v1.4.7===
+ * trim: true
+   * the translation always contains some extra whitespace which is removed by default with `$.trim`, setting this option to `false` keeps the spaces
+ * alwaysReplace: false
+   * by default if the translation is in the same language as the current text, then it's not replaced (see issue #38)
 
 ===Callback functions===
 
