@@ -4,7 +4,7 @@ Up to v1.4.6, the release notes were added on the [http://plugins.jquery.com/pro
 
 ===1.4.7===
  * languageCodeMap: "pt-br" -> "pt-PT"
- * new options: trim:true, alwaysReplace:true
+ * new options: trim:true, alwaysReplace:false
  * translateTextNodes: spaces are no longer removed (trim:false)
 
 
