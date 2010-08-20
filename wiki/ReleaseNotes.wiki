@@ -1,5 +1,12 @@
 #summary Release Notes
 
+Up to v1.4.6, the release notes were added on the [http://plugins.jquery.com/project/translate jQuery plugins site], but they are not even visible for 1.4.x, also I can't access any page if I'm logged in, so it's no longer maintained there.
+
+===1.4.7===
+ * languageCodeMap: "pt-br" -> "pt-PT"
+ * new options: trim, alwaysReplace
+ * translateTextNodes: spaces are no longer removed (trim:false)
+
 
 ===1.4.1===
 
