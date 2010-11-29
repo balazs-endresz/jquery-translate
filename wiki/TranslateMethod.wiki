@@ -105,6 +105,7 @@ These are the default values after each option:
    * the translation always contains some extra whitespace which is removed by default with `$.trim`, setting this option to `false` keeps the spaces
  * alwaysReplace: false (added in 1.4.7)
    * by default if the translation is in the same language as the current text, then it's not replaced (see issue #38)
+   * most likely you also have to set `toggle: false, fromOriginal:false`
 
 ===Callback functions===
 
