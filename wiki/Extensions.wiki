@@ -100,10 +100,9 @@ $.translate.nativeLanguages = {
  * $.translate.defer
  * $.translate.run
 
-example usage:
+For example, this can be used to translate language names to the corresponding languages, then get a notification when it's all done:
 
 {{{
-//you can generate the first argument with $.translate.getLanguages
 function translateLanguages(languages, callback){
   delete languages.UNKNOWN;
   var deferred = []; //instances to be executed later are collected here
@@ -121,4 +120,7 @@ function translateLanguages(languages, callback){
   else
     $.translate.run(deferred, callback);
 }
+
+//translate all translatable languages:
+translateLanguages($.translate.getLanguages(true), function(){ alert("done") })
 }}}
