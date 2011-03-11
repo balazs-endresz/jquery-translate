@@ -35,7 +35,7 @@ var True = true, False = false, undefined, replace = "".replace,
 		separators: /\.\?\!;:/,
 		limit: 1750,
 		
-		//TODO
+
 		walk: True,
 		returnAll: False,
 		replace: True,
@@ -353,6 +353,9 @@ $.translate.extend({
 		"zlm": "ms",
 		"zh-hans": "zh-CN",
 		"zh-hant": "zh-TW"
+		//,"zh-sg":"zh-CN"
+		//,"zh-hk":"zh-TW"
+		//,"zh-mo":"zh-TW"
 	},
 	
 	//use only language codes specified in the Language API
@@ -360,7 +363,8 @@ $.translate.extend({
 		"ar": True,
 		"iw": True,
 		"fa": True,
-		"ur": True
+		"ur": True,
+		"yi": True
 	},
 	
 	getBranding: function(){
@@ -396,7 +400,7 @@ $.translate.extend({
 		[[String], 					["to"]						],
 		[[String, String, Function],["from", "to", "complete"]	],
 		[[String, Function], 		["to", "complete"]			]
-		 //TODO:remove:
+		 //TODO:comment:
 		//,[[String, String, Function, Function], ["from", "to", "each", "complete"]]
 	]
 	/*jslint skipLines*/

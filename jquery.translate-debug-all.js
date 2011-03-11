@@ -1,7 +1,7 @@
 /*! 
  * jQuery nodesContainingText plugin 
  * 
- * Version: 1.1.1
+ * Version: 1.1.2
  * 
  * http://code.google.com/p/jquery-translate/
  * 
@@ -93,6 +93,7 @@ Nct.prototype = {
 					c=el.firstChild;
 					while(c){
 						if(c.nodeType == 3 && c.nodeValue.match(/\S/) !== null){//textnodes with text
+						//TODO: check nodetype too
 							/*jslint skipLines*/
 							if(c.nodeValue.match(/<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)>/) !== null){
 								if(c.nodeValue.match(/(\S+(?=.*<))|(>(?=.*\S+))/) !== null){
@@ -110,8 +111,9 @@ Nct.prototype = {
 
 					if(hasTextNode){//remove child nodes from jq
 						//remove scripts:
+						text = e.html();
 						/*jslint skipLines*/
-						text = e.html().replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "");
+						text = o.stripScripts ? text.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "") : text;
 						/*jslint skipLinesEnd*/
 						this.jq = this.jq.not( e.find("*") );
 					}
@@ -144,7 +146,8 @@ var defaults = {
 	returnAll: true,
 	walk: true,
 	altAndVal: false,
-	subject: true
+	subject: true,
+	stripScripts: true
 };
 
 $.fn.nodesContainingText = function(o){
@@ -258,7 +261,7 @@ var True = true, False = false, undefined, replace = "".replace,
 		separators: /\.\?\!;:/,
 		limit: 1750,
 		
-		//TODO
+
 		walk: True,
 		returnAll: False,
 		replace: True,
@@ -576,6 +579,9 @@ $.translate.extend({
 		"zlm": "ms",
 		"zh-hans": "zh-CN",
 		"zh-hant": "zh-TW"
+		//,"zh-sg":"zh-CN"
+		//,"zh-hk":"zh-TW"
+		//,"zh-mo":"zh-TW"
 	},
 	
 	//use only language codes specified in the Language API
@@ -583,7 +589,8 @@ $.translate.extend({
 		"ar": True,
 		"iw": True,
 		"fa": True,
-		"ur": True
+		"ur": True,
+		"yi": True
 	},
 	
 	getBranding: function(){
@@ -619,7 +626,7 @@ $.translate.extend({
 		[[String], 					["to"]						],
 		[[String, String, Function],["from", "to", "complete"]	],
 		[[String, Function], 		["to", "complete"]			]
-		 //TODO:remove:
+		 //TODO:comment:
 		//,[[String, String, Function, Function], ["from", "to", "each", "complete"]]
 	]
 	/*jslint skipLines*/
@@ -785,13 +792,15 @@ $.translate.extend({
 $.fn.translate = function(a, b, c){
 	var o = $.translate._getOpt(arguments, $.fn.translate.defaults),
 		ncto = $.extend( {}, $.translate._defaults, $.fn.translate.defaults, o,
-			{ complete:function(e,t){
+			{ complete:function(e,t){$.translate(function(){
 				
+				var from = $.translate.toLanguageCode(o.from);
+
 				if(o.fromOriginal)
 					e.each(function(i, el){
 						$fly[0] = el;
-						var data = $.translate.getData($fly, o.from, o);
-						if( !data ) return false;
+						var data = $.translate.getData($fly, from, o);
+						if( !data ) return true;
 						t[i] = data;
 					});
 				
@@ -805,6 +814,7 @@ $.fn.translate = function(a, b, c){
 					};
 				}
 				
+				//TODO: set as instance property
 				o.nodes = e;
 				o.start = unshiftArgs(o.start);
 				o.onTimeout = unshiftArgs(o.onTimeout);
@@ -819,7 +829,8 @@ $.fn.translate = function(a, b, c){
 				};
 				
 				$.translate(t, o);
-			},
+				
+			});},
 			
 			each: function(){}
 		});
@@ -844,6 +855,7 @@ $.fn.translate.defaults = $.extend({}, $.translate._defaults);
 /*globals Translator*/ 
 ;(function($){
 
+//TODO: add data support
 $.translateTextNodes = function(root){
 	var args = [].slice.call(arguments,0);
 	[].shift.call(args);
@@ -876,6 +888,7 @@ $.translateTextNodes = function(root){
 	
 };
 
+//TODO: remove slice
 $.fn.translateTextNodes = function(a, b, c){
 	[].unshift.call(arguments, this);
 	$.translateTextNodes.apply(null, [].slice.call(arguments,0));
@@ -965,24 +978,10 @@ $.translate.ui.defaults = $.extend({}, defaults);
  */
 ;(function($){
 $.translate.extend({
-	//TODO: maybe an inverse function
+
 	toNativeLanguage: function(lang){ 
 		return $.translate.nativeLanguages[ lang ] || 
 			$.translate.nativeLanguages[ $.translate.toLanguageCode(lang) ];
-	},
-
-	translateLanguages: function(languages, callback){
-		delete languages.UNKNOWN;
-		var deferred = []; //instances to be executed later are collected here
-		$.each(languages, function(l, lc){
-			if( $.translate.nativeLanguages[lc] ) return;
-			console.log(lc);
-			deferred.push( $.translate.defer( $.translate.capitalize(l), "en", lc, function(tr){					
-					$.translate.nativeLanguages[lc] = tr;
-				}) );
-		});
-		if(!deferred.length) callback();
-		else $.translate.run(deferred, callback);
 	},
 	
 	nativeLanguages: {

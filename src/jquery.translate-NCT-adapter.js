@@ -148,13 +148,15 @@ $.translate.extend({
 $.fn.translate = function(a, b, c){
 	var o = $.translate._getOpt(arguments, $.fn.translate.defaults),
 		ncto = $.extend( {}, $.translate._defaults, $.fn.translate.defaults, o,
-			{ complete:function(e,t){
+			{ complete:function(e,t){$.translate(function(){
 				
+				var from = $.translate.toLanguageCode(o.from);
+
 				if(o.fromOriginal)
 					e.each(function(i, el){
 						$fly[0] = el;
-						var data = $.translate.getData($fly, o.from, o);
-						if( !data ) return false;
+						var data = $.translate.getData($fly, from, o);
+						if( !data ) return true;
 						t[i] = data;
 					});
 				
@@ -168,6 +170,7 @@ $.fn.translate = function(a, b, c){
 					};
 				}
 				
+				//TODO: set as instance property
 				o.nodes = e;
 				o.start = unshiftArgs(o.start);
 				o.onTimeout = unshiftArgs(o.onTimeout);
@@ -182,7 +185,8 @@ $.fn.translate = function(a, b, c){
 				};
 				
 				$.translate(t, o);
-			},
+				
+			});},
 			
 			each: function(){}
 		});
