@@ -284,7 +284,11 @@ function getOpt(args0, _defaults){
 	if(o.fromOriginal) o.toggle = True;
 	if(o.toggle) o.data = True;
 	if(o.async === True) o.async = 2;
-	
+	if(o.alwaysReplace === true){ //see issue #58
+		o.toggle = false;
+		o.fromOriginal = false;
+	}
+
 	return o;
 }
 
