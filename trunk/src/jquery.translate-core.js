@@ -48,7 +48,11 @@ var True = true, False = false, undefined, replace = "".replace,
 		altAndVal:True,
 		async: False,
 		toggle: False,
-		fromOriginal: True
+		fromOriginal: True,
+		
+		parallel: false,
+		delay: 0
+		//,response: $function
 		
 	};
 
@@ -120,7 +124,6 @@ function getOpt(args0, _defaults){
 }
 
 
-
 function T(){
 	//copy over static methods during each instantiation
 	//for backward compatibility and access inside callback functions
@@ -134,7 +137,8 @@ T.prototype = {
 	
 	_init: function(t, o){ 
 		var separator = o.separators.source || o.separators,
-			isString = this.isString = typeof t === "string";
+			isString = this.isString = typeof t === "string",
+			lastpos = 0, substr;
 		
 		$.each(["stripComments", "stripScripts", "stripWhitespace"], function(i, name){
 			var fn = $.translate[name];
@@ -150,10 +154,23 @@ T.prototype = {
 		this.source = t;
 		this.rawTranslation = "";
 		this.translation = [];
-		this.startPos = 0;
 		this.i = 0;
 		this.stopped = False;
 		this.elements = o.nodes;
+		
+		//this._nres = 0;
+		//this._progress = 0;
+		this._i = -1; //TODO: rename
+		this.rawSources = [];
+		
+		while(True){
+			substr = this.truncate( this.rawSource.substr(lastpos), o.limit);
+			if(!substr) break;
+			this.rawSources.push(substr);
+			lastpos += substr.length;
+		}
+		this.queue = new Array(this.rawSources.length);
+		this.done = 0;
 		
 		o.start.call(this, t , o.from, o.to, o);
 		
@@ -171,9 +188,7 @@ T.prototype = {
 		var o = this.options,
 			i = this.rawTranslation.length,
 			lastpos, subst, divst, divcl;
-
-		this.rawSourceSub = this.truncate( this.rawSource.substr(this.startPos), o.limit);
-		this.startPos += this.rawSourceSub.length;
+		var that = this;
 		
 		while( (lastpos = this.rawTranslation.lastIndexOf("</div>", i)) > -1){
 
@@ -211,22 +226,67 @@ T.prototype = {
 			break;
 		}
 		
-		if(this.rawSourceSub.length)
-			this._translate();
-		else
+		if(this.rawSources.length - 1 == this._i)
 			this._complete();
+		
+		var _translate = bind(this._translate, this);
+		
+		if(o.parallel){
+			if(this._i < 0){
+				if(!o.delay){
+					$.each(this.rawSources, _translate);
+				}else{
+					var j = 0, n = this.rawSources.length;
+					(function seq(){
+						_translate();
+						if(j < n)
+							setTimeout( seq, o.delay );
+					})();
+				}
+			}
+		}else
+			_translate();
+			
 	},
 	
 	_translate: function(){
-		GL.translate(this.rawSourceSub, this.from, this.to, bind(function(result){
+		this._i++;		
+		var i = this._i, src = this.rawSourceSub = this.rawSources[i];
+		if(!src) return;
+		
+		GL.translate(src, this.from, this.to, bind(function(result){
+			//this._progress = 100 * (++this._nres) / this.rawSources.length;
+			//this.options.response.call(this, this._progress, result);
 			if(result.error)
 				return this.options.error.call(this, result.error, this.rawSourceSub, this.from, this.to, this.options);
 			
-			this.rawTranslation += result.translation || this.rawSourceSub;
+			this.queue[i] = result.translation || this.rawSourceSub;
 			this.detectedSourceLanguage = result.detectedSourceLanguage;
-				
-			this._process();
+			this._check();
 		}, this));
+
+	},
+	
+	_check: function(){
+		if(!this.options.parallel){
+			this.rawTranslation += this.queue[this._i];
+			this._process();
+			return;
+		}
+		
+		var done = 0;
+		jQuery.each(this.queue, function(i, n) {
+			if (n != undefined) done = i;
+			else return false;
+		});			
+		
+		if ((done > this.done) || (done === this.queue.length - 1)) {
+			for(var i = 0; i <= done; i++)
+				this.rawTranslation += this.queue[i];
+			this._process();
+		}
+		this.done = done;
+		
 	},
 	
 	_complete: function(){
