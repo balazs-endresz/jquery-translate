@@ -166,7 +166,7 @@ $.translate.fn._toggleTextNodes = function(){
 	}, this));
 	
 	!stop ? this._complete() : this._process();
-	o.complete.call(this, this.elements, this.translation, this.source, this.from, this.to, o);
+	//o.complete.call(this, this.elements, this.translation, this.source, this.from, this.to, o);
 };
 
 $.fn.translateTextNodes = function(a, b, c){
