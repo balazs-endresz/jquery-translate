@@ -134,7 +134,7 @@ function T(){
 T.prototype = {
 	version: "${version}",
 	
-	_init: function(t, o){ 
+	_init: function(t, o){
 		var separator = o.separators.source || o.separators,
 			isString = this.isString = typeof t === "string",
 			lastpos = 0, substr;
@@ -434,12 +434,14 @@ $.translate.extend({
 	
 	load: function(key, version){
 		loading = True;
-		function load(){ google.load("language", version || "1", {"callback" : loaded}); }
+		function _load(){ 
+			google.load("language", version || "1", {"callback" : loaded});
+		}
 		
 		if(typeof google !== "undefined" && google.load)
-			load();
+			_load();
 		else
-			$.getScript("http://www.google.com/jsapi?" + (key ? "key=" + key : ""), load);
+			$.getScript("http://www.google.com/jsapi" + (key ? "?key=" + key : ""), _load);
 		return $.translate;
 	},
 	

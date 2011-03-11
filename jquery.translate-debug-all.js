@@ -298,7 +298,7 @@ function T(){
 T.prototype = {
 	version: "${version}",
 	
-	_init: function(t, o){ 
+	_init: function(t, o){
 		var separator = o.separators.source || o.separators,
 			isString = this.isString = typeof t === "string",
 			lastpos = 0, substr;
@@ -598,12 +598,14 @@ $.translate.extend({
 	
 	load: function(key, version){
 		loading = True;
-		function load(){ google.load("language", version || "1", {"callback" : loaded}); }
+		function _load(){ 
+			google.load("language", version || "1", {"callback" : loaded});
+		}
 		
 		if(typeof google !== "undefined" && google.load)
-			load();
+			_load();
 		else
-			$.getScript("http://www.google.com/jsapi?" + (key ? "key=" + key : ""), load);
+			$.getScript("http://www.google.com/jsapi" + (key ? "?key=" + key : ""), _load);
 		return $.translate;
 	},
 	
@@ -655,6 +657,11 @@ var True = true,
 
 $fly.length = 1;
 
+function getDoc(node){
+    while (node && node.nodeType != 9)
+    	node = node.parentNode;
+    return node;
+}
 
 function toggleDir(e, dir){
 	var align = e.css("text-align");
@@ -751,7 +758,9 @@ $.translate.extend({
 			e.val(t);
 		else{
 			if(!o || o.rebind){
-				var origContents = e.find("*").not("script"), newElem = $("<div/>").html(t);
+				this.doc = this.doc || getDoc(el);
+				var origContents = e.find("*").not("script"),
+					newElem = $(this.doc.createElement("div")).html(t);
 				$.translate.copyEvents( origContents, newElem.find("*") );
 				e.html( newElem.contents() );
 			}else
@@ -852,6 +861,7 @@ $.fn.translate.defaults = $.extend({}, $.translate._defaults);
 
 ;(function($){
 
+
 function getTextNodes( root, _filter ){
 
 	var nodes = [],
@@ -941,6 +951,12 @@ function getData(parent, lang, that){
 }
 
 function _each(i, textNode, t, s, from, to, o){
+	t = t.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&amp;/g, '&')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;|&apos;/g, "'");
+	
 	var parent = textNode.parentNode;
 	setData(parent, o, s, t);
 	var newTextNode = replace(parent, textNode, t, to, o);
@@ -1024,7 +1040,6 @@ $.fn.translateTextNodes = function(a, b, c){
 };
 
 $.translateTextNodes.defaults = $.fn.translateTextNodes.defaults = $.extend({}, $.translate._defaults);
-
 
 })(jQuery);
 /*!-
