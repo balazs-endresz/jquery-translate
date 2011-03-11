@@ -898,10 +898,11 @@ function replace(parent, node, text, to, o){
 		lang = $.data(parent, "lang");
 	
 	if( isRtl[ to ] !== isRtl[ lang || o && o.from ] ){
+		var $parent = $(parent);
 		if( isRtl[ to ] )
-			toggleDir(parent, "rtl");
-		else if( parent.css("direction") === "rtl" )
-			toggleDir(parent, "ltr");
+			toggleDir($parent, "rtl");
+		else if( $parent.css("direction") === "rtl" )
+			toggleDir($parent, "ltr");
 	}
 	
 	$.data(parent, "lang", to);
@@ -917,16 +918,17 @@ function replace(parent, node, text, to, o){
 
 function setData(parent, o, src, trnsl){
 	if(o.data){
-		if(!$.data(parent, "translation"))
-			$.data(parent, "translation", {});
+		var TR = "translation";
+		if(!$.data(parent, TR))
+			$.data(parent, TR, {});
 		
-		if(!$.data(parent, "translation")[o.from])
-			$.data(parent, "translation")[o.from] = [];
-		[].push.call($.data(parent, "translation")[o.from], src);	
+		if(!$.data(parent, TR)[o.from])
+			$.data(parent, TR)[o.from] = [];
+		[].push.call($.data(parent, TR)[o.from], src);	
 		
-		if(!$.data(parent, "translation")[o.to])
-			$.data(parent, "translation")[o.to] = [];
-		[].push.call($.data(parent, "translation")[o.to], trnsl);	
+		if(!$.data(parent, TR)[o.to])
+			$.data(parent, TR)[o.to] = [];
+		[].push.call($.data(parent, TR)[o.to], trnsl);	
 	}
 }
 
