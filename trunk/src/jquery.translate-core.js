@@ -17,6 +17,7 @@
 function $function(){}
 
 var True = true, False = false, undefined, replace = "".replace,
+	Str = String, Fn = Function, Obj = Object,
 	GL, GLL, toLangCode, inverseLanguages = {},
 	loading, readyList = [],
 	defaults = {
@@ -84,10 +85,8 @@ function isSet(e){
 	return e !== undefined;
 }
 
-function validate(args, overload, error){
-	args = $.grep(args, isSet);
-	
-	var matched, obj = {};
+function validate(_args, overload, error){
+	var matched, obj = {}, args = $.grep(_args, isSet);
 	
 	$.each(overload, function(_, el){
 		var matches = $.grep(el[0], function(e, i){
@@ -100,7 +99,7 @@ function validate(args, overload, error){
 			return False;
 		}
 	});
-	
+	//TODO
 	if(!matched) throw error;
 	return obj;
 }
@@ -161,7 +160,9 @@ T.prototype = {
 		if(o.timeout)
 			this.timeout = setTimeout(bind(o.onTimeout, this, [t, o.from, o.to, o]), o.timeout);
 		
-		(o.toggle && o.nodes) ?	this._toggle() : this._process();
+		(o.toggle && o.nodes) ?	
+			(o.textNodes ? this._toggleTextNodes() : this._toggle()) : 
+			this._process();
 	},
 	
 	_process: function(){
@@ -177,7 +178,6 @@ T.prototype = {
 		while( (lastpos = this.rawTranslation.lastIndexOf("</div>", i)) > -1){
 
 			i = lastpos - 1;
-		
 			subst = this.rawTranslation.substr(0, i + 1);
 			/*jslint skipLines*/		
 			divst = subst.match(/<div[> ]/gi);	
@@ -186,7 +186,7 @@ T.prototype = {
 			
 			divst = divst ? divst.length : 0;
 			divcl = divcl ? divcl.length : 0;
-	
+			
 			if(divst !== divcl + 1) continue; //if there are some unclosed divs
 
 			var divscompl = $( this.rawTranslation.substr(0, i + 7) ), 
@@ -194,11 +194,11 @@ T.prototype = {
 				l = this.i;
 			
 			if(l === divlen) break; //if no new elements have been completely translated
-
+			
 			divscompl.slice(l, divlen).each( bind(function(j, e){
 				if(this.stopped)
 					return False;
-				var tr = $(e).html().replace(/^\s/, ""), i = l + j, src = this.source,
+				var tr = $.trim($(e).html()), i = l + j, src = this.source,
 					from = !this.from && this.detectedSourceLanguage || this.from;
 				this.translation[i] = tr;//create an array for complete callback
 				this.isString ? this.translation = tr : src = this.source[i];
@@ -349,6 +349,7 @@ $.translate.extend({
 	//keys must be lower case, and values must equal to a 
 	//language code specified in the Language API
 	languageCodeMap: {
+		"pt": "pt-PT",
 		"he": "iw",
 		"zlm": "ms",
 		"zh-hans": "zh-CN",
@@ -393,15 +394,15 @@ $.translate.extend({
 	
 	overload: [
 	    [[],[]],
-		[[String, String, Object], 	["from", "to", "options"]	],
-		[[String, Object], 			["to", "options"]			],
-		[[Object], 					["options"]					],
-		[[String, String], 			["from", "to"]				],
-		[[String], 					["to"]						],
-		[[String, String, Function],["from", "to", "complete"]	],
-		[[String, Function], 		["to", "complete"]			]
-		 //TODO:comment:
-		//,[[String, String, Function, Function], ["from", "to", "each", "complete"]]
+		[[Str, Str, Obj],	["from", "to", "options"]	],
+		[[Str, Obj], 		["to", "options"]			],
+		[[Obj], 			["options"]					],
+		[[Str, Str], 		["from", "to"]				],
+		[[Str], 			["to"]						],
+		[[Str, Str, Fn],	["from", "to", "complete"]	],
+		[[Str, Fn], 		["to", "complete"]			]
+		 //TODO
+		//,[[Str, Str, Fn, Fn], ["from", "to", "each", "complete"]]
 	]
 	/*jslint skipLines*/
 	,

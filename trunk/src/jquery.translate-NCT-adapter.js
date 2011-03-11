@@ -40,8 +40,6 @@ $.translate.fn._toggle = function(){
 		if(!tr) return !(stop = True);
 		
 		this.translation.push(tr);
-		this.replace(e, tr, to, o);
-		this.setLangAttr(e, to, o);
 
 		o.each.call(this, i, el, tr, this.source[i], this.from, to, o);
 		//'from' will be undefined if it wasn't set
@@ -82,6 +80,7 @@ $.translate.extend({
 	
 	
 	replace: function(e, t, to, o){
+		
 		if(o && !o.replace) return;
 		
 		if(o && typeof o.subject === "string")
@@ -102,7 +101,7 @@ $.translate.extend({
 			else if( e.css("direction") === "rtl" )
 				toggleDir(e, "ltr");
 		}
-				
+		
 		if( (!o || o.altAndVal) && (nodeName === 'IMG' || type === "image" ) )
 			e.attr("alt", t);
 		else if( nodeName === "TEXTAREA" || (!o || o.altAndVal) && isInput[ type ] )

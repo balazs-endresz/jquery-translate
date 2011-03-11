@@ -93,7 +93,6 @@ Nct.prototype = {
 					c=el.firstChild;
 					while(c){
 						if(c.nodeType == 3 && c.nodeValue.match(/\S/) !== null){//textnodes with text
-						//TODO: check nodetype too
 							/*jslint skipLines*/
 							if(c.nodeValue.match(/<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)>/) !== null){
 								if(c.nodeValue.match(/(\S+(?=.*<))|(>(?=.*\S+))/) !== null){
@@ -158,72 +157,11 @@ $.fn.nodesContainingText = function(o){
 $.fn.nodesContainingText.defaults = defaults;
 
 })(jQuery);/*!
- * Translator
- * Copyright (c) 2008 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
- * Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- * Date: 5/26/2008
- *
- * @projectDescription JS Class to translate text nodes.
- * @author Ariel Flesler
- * @version 1.0.1
+ * Textnode Translator
+ * Ariel Flesler - http://flesler.blogspot.com/2008/05/textnode-translator-for-javascript.html
  */
- 
-/*
- * The constructor must receive the parsing function, which will get the text as parameter
- * To use it, call the method .traverse() on the starting (root) node.
- * If the parsing is asynchronous (f.e AJAX), set sync to false on the instance.
- * When doing so, the parser function receives an extra argument, which is a function
- * that must be called passing it the parsed text.
- */
-function Translator( parser, filter ){
-	this.parse = parser; // function that parses the original string
-	this.filter = filter; // optional filtering function that receives the node, and returns true/false
-};
-Translator.prototype = {
-	translate:function( old ){ // translates a text node
-		if( this.sync )
-			this.replace( old, this.parse(old.nodeValue) );
-		else{
-			var self = this;
-			this.parse( old.nodeValue, function( text ){
-				self.replace( old, text );
-			});
-		}
-	},
-	makeNode:function( data ){
-		if( data && data.split ) // replacing for a string
-			data = document.createTextNode(data);
-		return data;
-	},
-	replace:function( old, text ){ // Replaces a text node with a new (string) text or another node
-		if( text != null && text != old.nodeValue ){
-			var parent = old.parentNode;
-			if( text.splice ){ // Array
-				for( var i = 0, l = text.length - 1; i < l; )
-					parent.insertBefore( this.makeNode(text[i++]), old );
-				text = this.makeNode(text[l] || ''); // Last
-			}else
-				text = this.makeNode(text);
-			parent.replaceChild( text, old );
-		}
-	},
-	valid:/\S/, // Used to skip empty text nodes (modify at your own risk)
-	sync:true, // If the parsing requires a callback, set to false
-	traverse:function( root ){ // Goes (recursively) thru the text nodes of the root, translating
-		var children = root.childNodes,
-			l = children.length,
-			node;
-		
-		while( l-- ){
-			node = children[l];
-			if( node.nodeType == 3 ){ // Text node
-				if( this.valid.test(node.nodeValue) ) // Skip empty text nodes
-					this.translate( node );
-			}else if( node.nodeType == 1 && (!this.filter || this.filter(node)) ) // Element node
-				this.traverse( node );
-		}
-	}
-};
+//This is now only a placeholder, the original script has been modified 
+//and the Translator class is no longer exposed
 /*! 
  * jQuery Translate plugin 
  * 
@@ -243,6 +181,7 @@ Translator.prototype = {
 function $function(){}
 
 var True = true, False = false, undefined, replace = "".replace,
+	Str = String, Fn = Function, Obj = Object,
 	GL, GLL, toLangCode, inverseLanguages = {},
 	loading, readyList = [],
 	defaults = {
@@ -310,10 +249,8 @@ function isSet(e){
 	return e !== undefined;
 }
 
-function validate(args, overload, error){
-	args = $.grep(args, isSet);
-	
-	var matched, obj = {};
+function validate(_args, overload, error){
+	var matched, obj = {}, args = $.grep(_args, isSet);
 	
 	$.each(overload, function(_, el){
 		var matches = $.grep(el[0], function(e, i){
@@ -326,7 +263,7 @@ function validate(args, overload, error){
 			return False;
 		}
 	});
-	
+	//TODO
 	if(!matched) throw error;
 	return obj;
 }
@@ -387,7 +324,9 @@ T.prototype = {
 		if(o.timeout)
 			this.timeout = setTimeout(bind(o.onTimeout, this, [t, o.from, o.to, o]), o.timeout);
 		
-		(o.toggle && o.nodes) ?	this._toggle() : this._process();
+		(o.toggle && o.nodes) ?	
+			(o.textNodes ? this._toggleTextNodes() : this._toggle()) : 
+			this._process();
 	},
 	
 	_process: function(){
@@ -403,7 +342,6 @@ T.prototype = {
 		while( (lastpos = this.rawTranslation.lastIndexOf("</div>", i)) > -1){
 
 			i = lastpos - 1;
-		
 			subst = this.rawTranslation.substr(0, i + 1);
 			/*jslint skipLines*/		
 			divst = subst.match(/<div[> ]/gi);	
@@ -412,7 +350,7 @@ T.prototype = {
 			
 			divst = divst ? divst.length : 0;
 			divcl = divcl ? divcl.length : 0;
-	
+			
 			if(divst !== divcl + 1) continue; //if there are some unclosed divs
 
 			var divscompl = $( this.rawTranslation.substr(0, i + 7) ), 
@@ -420,11 +358,11 @@ T.prototype = {
 				l = this.i;
 			
 			if(l === divlen) break; //if no new elements have been completely translated
-
+			
 			divscompl.slice(l, divlen).each( bind(function(j, e){
 				if(this.stopped)
 					return False;
-				var tr = $(e).html().replace(/^\s/, ""), i = l + j, src = this.source,
+				var tr = $.trim($(e).html()), i = l + j, src = this.source,
 					from = !this.from && this.detectedSourceLanguage || this.from;
 				this.translation[i] = tr;//create an array for complete callback
 				this.isString ? this.translation = tr : src = this.source[i];
@@ -575,6 +513,7 @@ $.translate.extend({
 	//keys must be lower case, and values must equal to a 
 	//language code specified in the Language API
 	languageCodeMap: {
+		"pt": "pt-PT",
 		"he": "iw",
 		"zlm": "ms",
 		"zh-hans": "zh-CN",
@@ -619,15 +558,15 @@ $.translate.extend({
 	
 	overload: [
 	    [[],[]],
-		[[String, String, Object], 	["from", "to", "options"]	],
-		[[String, Object], 			["to", "options"]			],
-		[[Object], 					["options"]					],
-		[[String, String], 			["from", "to"]				],
-		[[String], 					["to"]						],
-		[[String, String, Function],["from", "to", "complete"]	],
-		[[String, Function], 		["to", "complete"]			]
-		 //TODO:comment:
-		//,[[String, String, Function, Function], ["from", "to", "each", "complete"]]
+		[[Str, Str, Obj],	["from", "to", "options"]	],
+		[[Str, Obj], 		["to", "options"]			],
+		[[Obj], 			["options"]					],
+		[[Str, Str], 		["from", "to"]				],
+		[[Str], 			["to"]						],
+		[[Str, Str, Fn],	["from", "to", "complete"]	],
+		[[Str, Fn], 		["to", "complete"]			]
+		 //TODO
+		//,[[Str, Str, Fn, Fn], ["from", "to", "each", "complete"]]
 	]
 	/*jslint skipLines*/
 	,
@@ -684,8 +623,6 @@ $.translate.fn._toggle = function(){
 		if(!tr) return !(stop = True);
 		
 		this.translation.push(tr);
-		this.replace(e, tr, to, o);
-		this.setLangAttr(e, to, o);
 
 		o.each.call(this, i, el, tr, this.source[i], this.from, to, o);
 		//'from' will be undefined if it wasn't set
@@ -726,6 +663,7 @@ $.translate.extend({
 	
 	
 	replace: function(e, t, to, o){
+		
 		if(o && !o.replace) return;
 		
 		if(o && typeof o.subject === "string")
@@ -746,7 +684,7 @@ $.translate.extend({
 			else if( e.css("direction") === "rtl" )
 				toggleDir(e, "ltr");
 		}
-				
+		
 		if( (!o || o.altAndVal) && (nodeName === 'IMG' || type === "image" ) )
 			e.attr("alt", t);
 		else if( nodeName === "TEXTAREA" || (!o || o.altAndVal) && isInput[ type ] )
@@ -847,59 +785,183 @@ $.fn.translate = function(a, b, c){
 $.fn.translate.defaults = $.extend({}, $.translate._defaults);
 
 })(jQuery);/*!-
- * TextnodeTranslator adapter for the jQuery Translate plugin 
+ * TextNode Translator for the jQuery Translate plugin 
  * Version: ${version}
  * http://code.google.com/p/jquery-translate/
  */
 
-/*globals Translator*/ 
 ;(function($){
 
-//TODO: add data support
-$.translateTextNodes = function(root){
-	var args = [].slice.call(arguments,0);
-	[].shift.call(args);
+function getTextNodes( root, _filter ){
 
-	var o = $.translate._getOpt(args, $.translateTextNodes.defaults),
-		replaceFunctions = [],
-		contents = [],
-		each = o.each,
-		notType = typeof o.not, //not: function(node){ return node.nodeName != 'A'; }
-		filter = notType === "string" ? function(e){ return !$(e).is(o.not); } :
-				 notType === "function" ? o.not : 
+	var nodes = [],
+		skip = {SCRIPT:1, NOSCRIPT:1, STYLE:1, IFRAME:1},
+		notType = typeof _filter,
+		filter = notType === "string" ? function(node){ return !$(node).is(_filter); } :
+				 notType === "function" ? _filter :  //e.g. function(node){ return node.nodeName != 'A'; }
 				 null;
-
-	$.each(root[0] ? root : [root], function(i, e){
-		var tr = new Translator(function(str, fn){
-			contents.push(str);
-			replaceFunctions.push( o.replace ? fn : function(){} );
-		}, filter);
-		
-		tr.sync = false;
-		tr.traverse(e);
-	});
 	
-	return $.translate(contents, $.extend(o, {
-		each: function(i, translation){
-			replaceFunctions[i]( translation );
-			each.apply(this, arguments);
+	function recurse(_, root){
+		var i = 0, children = root.childNodes, l = children.length, node;
+		for(; i < l; i++){
+			node = children[i];
+			
+			if(node.nodeType == 3 && /\S/.test(node.nodeValue))
+				nodes.push(node);
+			else if( node.nodeType == 1 &&
+					!skip[ node.nodeName.toUpperCase() ] && 
+					(!filter || filter(node)))
+				recurse(null, node);
 		}
-	}));
+	}
 	
+	$.each((root.length && !root.nodeName) ? root : [root], recurse);
+
+	return nodes;
+}
+
+function toggleDir(e, dir){
+	var align = e.css("text-align");
+	e.css("direction", dir);
+	if(align === "right") e.css("text-align", "left");
+	if(align === "left") e.css("text-align", "right");
+}
+
+function setLangAttr(e, to, o){	
+	if(!o || o.setLangAttr)
+		$(e).attr((!o || o.setLangAttr === true) ? "lang" : o.setLangAttr, to);
+}
+	
+function replace(parent, node, text, to, o){
+	if(!o.replace) return;
+	var isRtl = $.translate.isRtl,
+		lang = $.data(parent, "lang");
+	
+	if( isRtl[ to ] !== isRtl[ lang || o && o.from ] ){
+		if( isRtl[ to ] )
+			toggleDir(parent, "rtl");
+		else if( parent.css("direction") === "rtl" )
+			toggleDir(parent, "ltr");
+	}
+	
+	$.data(parent, "lang", to);
+	
+	if(text != node.nodeValue){
+		var newTextNode = document.createTextNode(text);
+		parent.replaceChild(newTextNode, node);
+		return newTextNode;
+	}
+	
+	return node;
+}
+
+function setData(parent, o, src, trnsl){
+	if(o.data){
+		if(!$.data(parent, "translation"))
+			$.data(parent, "translation", {});
+		
+		if(!$.data(parent, "translation")[o.from])
+			$.data(parent, "translation")[o.from] = [];
+		[].push.call($.data(parent, "translation")[o.from], src);	
+		
+		if(!$.data(parent, "translation")[o.to])
+			$.data(parent, "translation")[o.to] = [];
+		[].push.call($.data(parent, "translation")[o.to], trnsl);	
+	}
+}
+
+function getData(parent, lang, that){
+	that._childIndex = that._prevParent === parent ? that._childIndex + 1 : 0;
+	var tr = $.data(parent, "translation");
+	that._prevParent = parent;
+	return tr && tr[lang] && tr[lang][that._childIndex];
+	
+}
+
+function _each(i, textNode, t, s, from, to, o){
+	var parent = textNode.parentNode;
+	setData(parent, o, s, t);
+	var newTextNode = replace(parent, textNode, t, to, o);
+	setLangAttr(parent, o.to, o);
+	
+	return newTextNode;
+}
+
+$.translateTextNodes = function(root){ 
+	var args = [].slice.call(arguments,0);
+	args.shift();
+	
+$.translate(function(){
+	var o = $.translate._getOpt(args, $.translateTextNodes.defaults),
+		each = o.each,
+		nodes = getTextNodes(root, o.not),
+		contents = $.map(nodes, function(n){ return n.nodeValue; }),
+		from = $.translate.toLanguageCode(o.from),
+		obj = {};
+	
+	o.nodes = nodes;
+	o.textNodes = true;
+	
+
+	if(o.fromOriginal)
+		$.each(nodes, function(i, textNode){
+			var data = getData(textNode.parentNode, from, obj);
+			if( !data ) return true;
+			contents[i] = data;
+		});
+	
+	function unshiftArgs(method){
+		return function(){
+			[].unshift.call(arguments, this.elements);
+			method.apply(this, arguments);
+		};
+	}
+	
+	o.start = unshiftArgs(o.start);
+	o.onTimeout = unshiftArgs(o.onTimeout);
+	o.complete = unshiftArgs(o.complete);
+	
+	o.each = function(i){
+		var args = arguments;
+		if(arguments.length !== 7) //if isn't called from _toggle
+			[].splice.call(args, 1, 0, this.elements[i]);		
+		this.elements[i] = args[1] = _each.apply(this, args);
+		
+		each.apply(this, args);
+	};
+	
+	$.translate(contents, o);
+	
+});
 };
 
-//TODO: remove slice
+$.translate.fn._toggleTextNodes = function(){
+	var o = this.options, to = o.to, stop;
+	
+	$.each(this.elements, $.translate._bind(function(i, textNode){
+		this.i = i;
+		var parent = textNode.parentNode, 
+		    tr = getData(parent, to, this);
+		
+		if(!tr) return !(stop = true);
+		
+		this.translation.push(tr);
+		
+		o.each.call(this, i, textNode, tr, this.source[i], this.from, to, o);
+		//'from' will be undefined if it wasn't set
+	}, this));
+	
+	!stop ? this._complete() : this._process();
+	o.complete.call(this, this.elements, this.translation, this.source, this.from, this.to, o);
+};
+
 $.fn.translateTextNodes = function(a, b, c){
 	[].unshift.call(arguments, this);
-	$.translateTextNodes.apply(null, [].slice.call(arguments,0));
+	$.translateTextNodes.apply(null, arguments);
 	return this;
 };
 
-var defaults = $.extend({}, $.translate._defaults);
-
-$.translateTextNodes.defaults = $.extend({}, defaults);
-
-$.fn.translateTextNodes.defaults = $.extend({}, defaults);
+$.translateTextNodes.defaults = $.fn.translateTextNodes.defaults = $.extend({}, $.translate._defaults);
 
 
 })(jQuery);

@@ -93,7 +93,6 @@ Nct.prototype = {
 					c=el.firstChild;
 					while(c){
 						if(c.nodeType == 3 && c.nodeValue.match(/\S/) !== null){//textnodes with text
-						//TODO: check nodetype too
 							/*jslint skipLines*/
 							if(c.nodeValue.match(/<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)>/) !== null){
 								if(c.nodeValue.match(/(\S+(?=.*<))|(>(?=.*\S+))/) !== null){
