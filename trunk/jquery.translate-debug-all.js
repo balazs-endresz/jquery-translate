@@ -214,8 +214,7 @@ var True = true, False = false, undefined, replace = "".replace,
 		toggle: False,
 		fromOriginal: True,
 		
-		parallel: false,
-		delay: 0
+		parallel: false
 		//,response: $function
 		
 	};
@@ -397,15 +396,16 @@ T.prototype = {
 		
 		if(o.parallel){
 			if(this._i < 0){
-				if(!o.delay){
+				if(!o.parallel){
 					$.each(this.rawSources, _translate);
 				}else{
 					var j = 0, n = this.rawSources.length;
-					(function seq(){
+					function seq(){
 						_translate();
 						if(j < n)
-							setTimeout( seq, o.delay );
-					})();
+							setTimeout( seq, o.parallel );
+					}
+					seq();
 				}
 			}
 		}else
