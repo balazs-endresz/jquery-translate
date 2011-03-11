@@ -5,24 +5,10 @@
  */
 ;(function($){
 $.translate.extend({
-	//TODO: maybe an inverse function
+
 	toNativeLanguage: function(lang){ 
 		return $.translate.nativeLanguages[ lang ] || 
 			$.translate.nativeLanguages[ $.translate.toLanguageCode(lang) ];
-	},
-
-	translateLanguages: function(languages, callback){
-		delete languages.UNKNOWN;
-		var deferred = []; //instances to be executed later are collected here
-		$.each(languages, function(l, lc){
-			if( $.translate.nativeLanguages[lc] ) return;
-			console.log(lc);
-			deferred.push( $.translate.defer( $.translate.capitalize(l), "en", lc, function(tr){					
-					$.translate.nativeLanguages[lc] = tr;
-				}) );
-		});
-		if(!deferred.length) callback();
-		else $.translate.run(deferred, callback);
 	},
 	
 	nativeLanguages: {

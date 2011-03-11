@@ -7,6 +7,7 @@
 /*globals Translator*/ 
 ;(function($){
 
+//TODO: add data support
 $.translateTextNodes = function(root){
 	var args = [].slice.call(arguments,0);
 	[].shift.call(args);
@@ -39,6 +40,7 @@ $.translateTextNodes = function(root){
 	
 };
 
+//TODO: remove slice
 $.fn.translateTextNodes = function(a, b, c){
 	[].unshift.call(arguments, this);
 	$.translateTextNodes.apply(null, [].slice.call(arguments,0));

@@ -1,7 +1,7 @@
 /*! 
  * jQuery nodesContainingText plugin 
  * 
- * Version: 1.1.1
+ * Version: 1.1.2
  * 
  * http://code.google.com/p/jquery-translate/
  * 
@@ -93,6 +93,7 @@ Nct.prototype = {
 					c=el.firstChild;
 					while(c){
 						if(c.nodeType == 3 && c.nodeValue.match(/\S/) !== null){//textnodes with text
+						//TODO: check nodetype too
 							/*jslint skipLines*/
 							if(c.nodeValue.match(/<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)>/) !== null){
 								if(c.nodeValue.match(/(\S+(?=.*<))|(>(?=.*\S+))/) !== null){
@@ -110,8 +111,9 @@ Nct.prototype = {
 
 					if(hasTextNode){//remove child nodes from jq
 						//remove scripts:
+						text = e.html();
 						/*jslint skipLines*/
-						text = e.html().replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "");
+						text = o.stripScripts ? text.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "") : text;
 						/*jslint skipLinesEnd*/
 						this.jq = this.jq.not( e.find("*") );
 					}
@@ -144,7 +146,8 @@ var defaults = {
 	returnAll: true,
 	walk: true,
 	altAndVal: false,
-	subject: true
+	subject: true,
+	stripScripts: true
 };
 
 $.fn.nodesContainingText = function(o){
