@@ -97,8 +97,10 @@ $.translate.extend({
 			isRtl = $.translate.isRtl,
 			lang = $.data(el, "lang");
 		
-		if( lang === to )
-			return;
+		//http://code.google.com/p/jquery-translate/issues/detail?id=38
+		if(!o.alwaysReplace)
+			if( lang === to )
+				return;
 		
 		if( isRtl[ to ] !== isRtl[ lang || o && o.from ] ){
 			if( isRtl[ to ] )
