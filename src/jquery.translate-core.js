@@ -50,7 +50,9 @@ var True = true, False = false, undefined, replace = "".replace,
 		toggle: False,
 		fromOriginal: True,
 		
-		parallel: false
+		parallel: false,
+		trim: true,
+		alwaysReplace: false
 		//,response: $function
 		
 	};
@@ -212,7 +214,8 @@ T.prototype = {
 			divscompl.slice(l, divlen).each( bind(function(j, e){
 				if(this.stopped)
 					return False;
-				var tr = $.trim($(e).html()), i = l + j, src = this.source,
+				var e_html = $(e).html(), tr = o.trim ? $.trim(e_html) : e_html,
+					i = l + j, src = this.source,
 					from = !this.from && this.detectedSourceLanguage || this.from;
 				this.translation[i] = tr;//create an array for complete callback
 				this.isString ? this.translation = tr : src = this.source[i];
@@ -410,6 +413,7 @@ $.translate.extend({
 	//language code specified in the Language API
 	languageCodeMap: {
 		"pt": "pt-PT",
+		"pt-br": "pt-PT",		
 		"he": "iw",
 		"zlm": "ms",
 		"zh-hans": "zh-CN",
@@ -441,7 +445,8 @@ $.translate.extend({
 		if(typeof google !== "undefined" && google.load)
 			_load();
 		else
-			$.getScript("http://www.google.com/jsapi" + (key ? "?key=" + key : ""), _load);
+			$.getScript(((document.location.protocol == "https:") ? "https://" : "http://") +
+						"www.google.com/jsapi" + (key ? "?key=" + key : ""), _load);
 		return $.translate;
 	},
 	

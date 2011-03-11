@@ -124,7 +124,7 @@ $.translate(function(){
 	
 	o.nodes = nodes;
 	o.textNodes = true;
-	
+	o.trim = false;
 
 	if(o.fromOriginal)
 		$.each(nodes, function(i, textNode){
@@ -185,5 +185,6 @@ $.fn.translateTextNodes = function(a, b, c){
 };
 
 $.translateTextNodes.defaults = $.fn.translateTextNodes.defaults = $.extend({}, $.translate._defaults);
+
 
 })(jQuery);
