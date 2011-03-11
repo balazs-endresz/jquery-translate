@@ -66,6 +66,7 @@ These are the default values after each option:
    * selector - elements to leave out (script, noscript, style, object and iframe elements will be omitted either this is set or not)
    * doesn't work for elements having textnode siblings, as the whole content of their parent node will be translated (see the `walk` option),
    * in this case, you have to add a `notranslate` class to those elements before the translation: `$(selector).addClass("notranslate");  $("body").translate(...);`
+   * alternatively you can use the `.translateTextNodes()` method instead, see: TextnodeTranslatorIntegration
  * replace: true
    * replace original text on the page with the translation
  * rebind: true
