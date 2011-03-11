@@ -6,6 +6,7 @@
 
 ;(function($){
 
+
 function getTextNodes( root, _filter ){
 
 	var nodes = [],
@@ -95,6 +96,12 @@ function getData(parent, lang, that){
 }
 
 function _each(i, textNode, t, s, from, to, o){
+	t = t.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&amp;/g, '&')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;|&apos;/g, "'");
+	
 	var parent = textNode.parentNode;
 	setData(parent, o, s, t);
 	var newTextNode = replace(parent, textNode, t, to, o);
@@ -178,6 +185,5 @@ $.fn.translateTextNodes = function(a, b, c){
 };
 
 $.translateTextNodes.defaults = $.fn.translateTextNodes.defaults = $.extend({}, $.translate._defaults);
-
 
 })(jQuery);

@@ -12,6 +12,11 @@ var True = true,
 
 $fly.length = 1;
 
+function getDoc(node){
+    while (node && node.nodeType != 9)
+    	node = node.parentNode;
+    return node;
+}
 
 function toggleDir(e, dir){
 	var align = e.css("text-align");
@@ -108,7 +113,9 @@ $.translate.extend({
 			e.val(t);
 		else{
 			if(!o || o.rebind){
-				var origContents = e.find("*").not("script"), newElem = $("<div/>").html(t);
+				this.doc = this.doc || getDoc(el);
+				var origContents = e.find("*").not("script"),
+					newElem = $(this.doc.createElement("div")).html(t);
 				$.translate.copyEvents( origContents, newElem.find("*") );
 				e.html( newElem.contents() );
 			}else
