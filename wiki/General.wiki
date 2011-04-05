@@ -71,9 +71,8 @@ console.log( lang );
 
  * ready( function(){...} )
    * executes the function supplied if/when the language API is loaded, see above
- * load( APIkey, APIname, version )
-   * *v1.4:*  apiName argument removed
-   * loads jsapi.js and the Language API, all arguments are optional
+ * load( APIkey, version )
+   * loads jsapi.js and the Language API, both arguments are optional
  * stop()
    * stops the translation 
    * this can't be used as a static method, only after `this` inside callback functions
