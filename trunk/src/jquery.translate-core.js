@@ -277,6 +277,7 @@ T.prototype = {
         this._i++;		
         var i = this._i, src = this.rawSourceSub = this.rawSources[i];
         if(!src) return;
+
         if(!appid){
             GL.translate(src, this.from, this.to, bind(function(result){
                 //this._progress = 100 * (++this._nres) / this.rawSources.length;
@@ -295,12 +296,13 @@ T.prototype = {
                 jsonp: "oncomplete",
                 crossDomain: true,
                 context: this,
-                data: {appId: appid, form: this.from, to: this.to, contentType: "text/html", text: src}
-            }).success(function(data, status){
-                //console.log(data);
-                this.queue[i] = data || this.rawSourceSub;
-                //this.detectedSourceLanguage = result.detectedSourceLanguage;
-                this._check();
+                data: {appId: appid, form: this.from, to: this.to, contentType: "text/html", text: src},
+				success: function(data, status){
+					//console.log(data);
+					this.queue[i] = data || this.rawSourceSub;
+					//this.detectedSourceLanguage = result.detectedSourceLanguage;
+					this._check();
+				}
             });
         }
     },
@@ -492,19 +494,20 @@ $.translate.extend({
                 jsonp: "oncomplete",
                 crossDomain: true,
                 context: this,
-                data: {appId: appid}
-            }).success(function(languageCodes, status){
-                $.ajax({
-                    url: "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguageNames",
-                    dataType: "jsonp",
-                    jsonp: "oncomplete",
-                    crossDomain: true,
-                    context: this,
-                    data: {appId: appid, locale: "en", languageCodes: '["'+languageCodes.join('", "')+'"]'}
-                }).success(function(languageNames, status){
-                    ms_loaded(languageCodes, languageNames);
-                });
-
+                data: {appId: appid},
+                success: function(languageCodes, status){
+                    $.ajax({
+                        url: "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguageNames",
+                        dataType: "jsonp",
+                        jsonp: "oncomplete",
+                        crossDomain: true,
+                        context: this,
+                        data: {appId: appid, locale: "en", languageCodes: '["'+languageCodes.join('", "')+'"]'},
+                        success: function(languageNames, status){
+                            ms_loaded(languageCodes, languageNames);
+                        }
+                    });
+                }
             });
 
         }
