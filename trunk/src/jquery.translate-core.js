@@ -296,7 +296,7 @@ T.prototype = {
                 jsonp: "oncomplete",
                 crossDomain: true,
                 context: this,
-                data: {appId: appid, form: this.from, to: this.to, contentType: "text/html", text: src},
+                data: {appId: appid, form: this.from, to: this.to, contentType: "text/plain", text: src},
 				success: function(data, status){
 					//console.log(data);
 					this.queue[i] = data || this.rawSourceSub;
