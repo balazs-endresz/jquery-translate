@@ -92,6 +92,7 @@ console.log( lang );
    * determines whether two languages are the same or not
    * this might be useful as the plugin accepts both e.g "en" or "English", and isn't case-sensitive either
  * getBranding( opt_element, opt_options )
+   * DEPRECATED as of r244: returns an empty jQuery object, will be removed in the future
    * This method is a static helper function that returns a "powered by Google" HTML DOM branding node as a jQuery object, and optionally attaches it to the optional element. The purpose of this method is to ensure that your application has a simple way to comply with branding requirements.
    * opt_element - The optional element or element id to attach the branding into the DOM.
    * opt_options - The optional options map. Currently the only supported key value is type which can accept a value of 'vertical' or 'horizontal'
