@@ -12,6 +12,8 @@ Simply include the plugin after jQuery, it loads all the necessary stuff from Go
 If you want to use the plugin on page load in most cases you can call it inside `$(document).ready()` but in some cases you have to define a callback function to be executed when the Language API is loaded. It's not `$(document).ready()` but `$.translate.ready()`:
 
 {{{
+$.translate.load(bingAppID_or_GoogleAPIkey);
+
 $(document).ready(function(){
   //this will work,
   //returns a jQuery object and translates the text when the Language API is loaded
