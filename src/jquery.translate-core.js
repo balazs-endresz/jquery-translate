@@ -19,7 +19,7 @@ function $function(){}
 var True = true, False = false, undefined, replace = "".replace,
     Str = String, Fn = Function, Obj = Object,
     GL, GLL, toLangCode, inverseLanguages = {},
-    loading, readyList = [], appid,
+    loading, readyList = [], key,
     defaults = {
         from: "",
         to: "",
@@ -58,12 +58,6 @@ var True = true, False = false, undefined, replace = "".replace,
     };
 
 
-function google_loaded(){
-    $.translate.GL = GL = google.language;
-    $.translate.GLL = GLL = GL.Languages;
-
-    loaded();
-}
 
 function ms_loaded(languageCodes, languageNames){
     GLL = {};
@@ -278,7 +272,23 @@ T.prototype = {
         var i = this._i, src = this.rawSourceSub = this.rawSources[i];
         if(!src) return;
 
-        if(!appid){
+        if(key.length < 40){
+			$.ajax({
+                url:  "https://www.googleapis.com/language/translate/v2",
+                dataType: "jsonp",
+                jsonp: "callback",
+                crossDomain: true,
+                context: this,
+                data: {"key": key, source: this.from, target: this.to, q: src},
+			    success: function(response){
+					var tr = response.data.translations[0].translatedText
+					this.queue[i] = tr || this.rawSourceSub;
+					//this.detectedSourceLanguage = result.detectedSourceLanguage;
+					this._check();
+				}
+            });		
+
+			/*
             GL.translate(src, this.from, this.to, bind(function(result){
                 //this._progress = 100 * (++this._nres) / this.rawSources.length;
                 //this.options.response.call(this, this._progress, result);
@@ -289,6 +299,7 @@ T.prototype = {
                 this.detectedSourceLanguage = result.detectedSourceLanguage;
                 this._check();
             }, this));
+			*/
         }else{
             $.ajax({
                 url: "http://api.microsofttranslator.com/V2/Ajax.svc/Translate",
@@ -296,7 +307,7 @@ T.prototype = {
                 jsonp: "oncomplete",
                 crossDomain: true,
                 context: this,
-                data: {appId: appid, from: this.from, to: this.to, contentType: "text/plain", text: src},
+                data: {appId: key, from: this.from, to: this.to, contentType: "text/plain", text: src},
 				success: function(data, status){
 					//console.log(data);
 					this.queue[i] = data || this.rawSourceSub;
@@ -417,7 +428,7 @@ $.translate.extend({
                         newObj[lang] = languages[lang];
                 }
         else //if the first argument is true -> only translatable languages
-            newObj = filter(GLL, GL.isTranslatable);
+            newObj = filter(GLL, $.translate.isTranslatable);
         
         return newObj;
     },
@@ -443,7 +454,7 @@ $.translate.extend({
     },
         
     isTranslatable: function(l){
-        return GL ? GL.isTranslatable( toLangCode(l) ) : !!toLangCode(l);
+        return !!toLangCode(l);
     },
 
     //keys must be lower case, and values must equal to a 
@@ -470,13 +481,17 @@ $.translate.extend({
     },
     
     getBranding: function(){
-        return $( GL.getBranding.apply(GL, arguments) );
+		if(typeof console != "undefined")
+			console.log("$.translate.getBranding() IS DEPRECATED! PLEASE REMOVE IT FROM YOUR CODE!");
+        return $();
     },
     
-    load: function(key, version){
+    load: function(_key, version){
         loading = True;
+		key = _key;
 
-        if(!key || (key.length < 40)){ //Google API
+        if(key.length < 40){ //Google API
+			/*
             function _load(){ 
                 google.load("language", version || "1", {"callback" : google_loaded});
             }
@@ -486,15 +501,260 @@ $.translate.extend({
             else
                 $.getScript(((document.location.protocol == "https:") ? "https://" : "http://") +
                             "www.google.com/jsapi" + (key ? "?key=" + key : ""), _load);
+			*/
+			
+			/*
+            $.ajax({
+                url: "https://www.googleapis.com/language/translate/v2/languages",
+                dataType: "jsonp",
+                jsonp: "oncomplete",
+                crossDomain: true,
+                context: this,
+                data: {key: key, target: "en"},
+                success: function(response, status){
+					var languageCodes = [], languageNames = [];
+					$.each(response.data.languages, function(i, e){
+						languageCodes.push(e.language);
+						languageNames.push(e.name);
+					});
+	                ms_loaded(languageCodes, languageNames);
+                }
+            });
+			*/
+			
+ var response = {"data": {
+  "languages": [
+   {
+    "language": "af",
+    "name": "Afrikaans"
+   },
+   {
+    "language": "sq",
+    "name": "Albanian"
+   },
+   {
+    "language": "ar",
+    "name": "Arabic"
+   },
+   {
+    "language": "be",
+    "name": "Belarusian"
+   },
+   {
+    "language": "bg",
+    "name": "Bulgarian"
+   },
+   {
+    "language": "ca",
+    "name": "Catalan"
+   },
+   {
+    "language": "zh",
+    "name": "Chinese (Simplified)"
+   },
+   {
+    "language": "zh-TW",
+    "name": "Chinese (Traditional)"
+   },
+   {
+    "language": "hr",
+    "name": "Croatian"
+   },
+   {
+    "language": "cs",
+    "name": "Czech"
+   },
+   {
+    "language": "da",
+    "name": "Danish"
+   },
+   {
+    "language": "nl",
+    "name": "Dutch"
+   },
+   {
+    "language": "en",
+    "name": "English"
+   },
+   {
+    "language": "et",
+    "name": "Estonian"
+   },
+   {
+    "language": "tl",
+    "name": "Filipino"
+   },
+   {
+    "language": "fi",
+    "name": "Finnish"
+   },
+   {
+    "language": "fr",
+    "name": "French"
+   },
+   {
+    "language": "gl",
+    "name": "Galician"
+   },
+   {
+    "language": "de",
+    "name": "German"
+   },
+   {
+    "language": "el",
+    "name": "Greek"
+   },
+   {
+    "language": "ht",
+    "name": "Haitian Creole"
+   },
+   {
+    "language": "iw",
+    "name": "Hebrew"
+   },
+   {
+    "language": "hi",
+    "name": "Hindi"
+   },
+   {
+    "language": "hu",
+    "name": "Hungarian"
+   },
+   {
+    "language": "is",
+    "name": "Icelandic"
+   },
+   {
+    "language": "id",
+    "name": "Indonesian"
+   },
+   {
+    "language": "ga",
+    "name": "Irish"
+   },
+   {
+    "language": "it",
+    "name": "Italian"
+   },
+   {
+    "language": "ja",
+    "name": "Japanese"
+   },
+   {
+    "language": "ko",
+    "name": "Korean"
+   },
+   {
+    "language": "lv",
+    "name": "Latvian"
+   },
+   {
+    "language": "lt",
+    "name": "Lithuanian"
+   },
+   {
+    "language": "mk",
+    "name": "Macedonian"
+   },
+   {
+    "language": "ms",
+    "name": "Malay"
+   },
+   {
+    "language": "mt",
+    "name": "Maltese"
+   },
+   {
+    "language": "no",
+    "name": "Norwegian"
+   },
+   {
+    "language": "fa",
+    "name": "Persian"
+   },
+   {
+    "language": "pl",
+    "name": "Polish"
+   },
+   {
+    "language": "pt",
+    "name": "Portuguese"
+   },
+   {
+    "language": "ro",
+    "name": "Romanian"
+   },
+   {
+    "language": "ru",
+    "name": "Russian"
+   },
+   {
+    "language": "sr",
+    "name": "Serbian"
+   },
+   {
+    "language": "sk",
+    "name": "Slovak"
+   },
+   {
+    "language": "sl",
+    "name": "Slovenian"
+   },
+   {
+    "language": "es",
+    "name": "Spanish"
+   },
+   {
+    "language": "sw",
+    "name": "Swahili"
+   },
+   {
+    "language": "sv",
+    "name": "Swedish"
+   },
+   {
+    "language": "th",
+    "name": "Thai"
+   },
+   {
+    "language": "tr",
+    "name": "Turkish"
+   },
+   {
+    "language": "uk",
+    "name": "Ukrainian"
+   },
+   {
+    "language": "vi",
+    "name": "Vietnamese"
+   },
+   {
+    "language": "cy",
+    "name": "Welsh"
+   },
+   {
+    "language": "yi",
+    "name": "Yiddish"
+   }
+  ]
+ }
+};
+
+					var languageCodes = [], languageNames = [];
+					$.each(response.data.languages, function(i, e){
+						languageCodes.push(e.language);
+						languageNames.push(e.name);
+					});
+	                ms_loaded(languageCodes, languageNames);
+
         }else{ //Microsoft API
-            appid = key;
             $.ajax({
                 url: "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguagesForTranslate",
                 dataType: "jsonp",
                 jsonp: "oncomplete",
                 crossDomain: true,
                 context: this,
-                data: {appId: appid},
+                data: {appId: key},
                 success: function(languageCodes, status){
                     $.ajax({
                         url: "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguageNames",
@@ -502,7 +762,7 @@ $.translate.extend({
                         jsonp: "oncomplete",
                         crossDomain: true,
                         context: this,
-                        data: {appId: appid, locale: "en", languageCodes: '["'+languageCodes.join('", "')+'"]'},
+                        data: {appId: key, locale: "en", languageCodes: '["'+languageCodes.join('", "')+'"]'},
                         success: function(languageNames, status){
                             ms_loaded(languageCodes, languageNames);
                         }
