@@ -445,6 +445,9 @@ T.prototype = {
                 context: this,
                 data: {"key": key, source: this.from, target: this.to, q: src},
 			    success: function(response){
+					if(response.error){
+						return this.options.error.call(this, response.error, this.rawSourceSub, this.from, this.to, this.options);
+					}
 					var tr = response.data.translations[0].translatedText
 					this.queue[i] = tr || this.rawSourceSub;
 					//this.detectedSourceLanguage = result.detectedSourceLanguage;
