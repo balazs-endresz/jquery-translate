@@ -443,14 +443,14 @@ T.prototype = {
                 jsonp: "callback",
                 crossDomain: true,
                 context: this,
-                data: {"key": key, source: this.from, target: this.to, q: src},
+                data: $.extend({"key": key, target: this.to, q: src}, this.from ? {source: this.from} : {}),
 			    success: function(response){
 					if(response.error){
 						return this.options.error.call(this, response.error, this.rawSourceSub, this.from, this.to, this.options);
 					}
 					var tr = response.data.translations[0].translatedText
 					this.queue[i] = tr || this.rawSourceSub;
-					//this.detectedSourceLanguage = result.detectedSourceLanguage;
+					this.detectedSourceLanguage = response.data.translations[0].detectedSourceLanguage;
 					this._check();
 				}
             });		
