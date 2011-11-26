@@ -269,7 +269,7 @@ T.prototype = {
     
     _translate: function(){
         this._i++;		
-        var i = this._i, src = this.rawSourceSub = this.rawSources[i];
+        var _this = this, i = this._i, src = this.rawSourceSub = this.rawSources[i];
         if(!src) return;
 
         if(key.length < 40){
@@ -278,16 +278,16 @@ T.prototype = {
                 dataType: "jsonp",
                 jsonp: "callback",
                 crossDomain: true,
-                context: this,
+                //context: this,  //doesn't work with older versions of jQuery
                 data: $.extend({"key": key, target: this.to, q: src}, this.from ? {source: this.from} : {}),
 			    success: function(response){
 					if(response.error){
-						return this.options.error.call(this, response.error, this.rawSourceSub, this.from, this.to, this.options);
+						return _this.options.error.call(_this, response.error, _this.rawSourceSub, _this.from, _this.to, _this.options);
 					}
-					var tr = response.data.translations[0].translatedText
-					this.queue[i] = tr || this.rawSourceSub;
-					this.detectedSourceLanguage = response.data.translations[0].detectedSourceLanguage;
-					this._check();
+					var tr = response.data.translations[0].translatedText;
+					_this.queue[i] = tr || _this.rawSourceSub;
+					_this.detectedSourceLanguage = response.data.translations[0].detectedSourceLanguage;
+					_this._check();
 				}
             });		
 
@@ -309,13 +309,13 @@ T.prototype = {
                 dataType: "jsonp",
                 jsonp: "oncomplete",
                 crossDomain: true,
-                context: this,
-                data: {appId: key, from: this.from, to: this.to, contentType: "text/plain", text: src},
+                //context: this,
+                data: {appId: key, from: _this.from, to: _this.to, contentType: "text/plain", text: src},
 				success: function(data, status){
 					//console.log(data);
-					this.queue[i] = data || this.rawSourceSub;
+					_this.queue[i] = data || _this.rawSourceSub;
 					//this.detectedSourceLanguage = result.detectedSourceLanguage;
-					this._check();
+					_this._check();
 				}
             });
         }
